@@ -4,6 +4,9 @@
 # Logs
 *.log
 
+# Configuration
+config/config.json
+
 # Python
 __pycache__/
 *.pyc
