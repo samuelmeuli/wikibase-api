@@ -1,0 +1,11 @@
+# OS
+.DS_Store
+
+# Logs
+*.log
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*$py.class
