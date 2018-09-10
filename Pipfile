@@ -16,3 +16,4 @@ python_version = "3.6"
 
 [scripts]
 lint = "flake8 --inline-quotes 'double'"
+test = "pipenv run python -m unittest discover tests"
