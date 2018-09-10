@@ -6,11 +6,9 @@ required_entires = [
     "consumerSecret",
     "accessToken",
     "accessSecret",
-    "wikibaseInstance"
+    "wikibaseInstance",
 ]
-optional_entries = {
-    "isBot": False
-}
+optional_entries = {"isBot": False}
 
 
 def get_config(config_path):
@@ -21,20 +19,19 @@ def get_config(config_path):
         with open(config_path) as file:
             user_config = json.load(file)
     except FileNotFoundError:
-        raise FileNotFoundError("Config file missing. Please create a config "
-                                "file at \"{}\" or specify the correct config "
-                                "path".format(config_path))
+        raise FileNotFoundError(
+            'Config file missing. Please create a config file at "{}" or specify the correct '
+            "config path".format(config_path)
+        )
 
     # Save values of required entries, raise exception if missing
     for key in required_entires:
         if key not in user_config:
-            raise KeyError("Entry \"{}\" is missing in configuration file"
-                           .format(key))
+            raise KeyError('Entry "{}" is missing in configuration file'.format(key))
         else:
             config[key] = user_config[key]
 
-    # Save values of optional entries if provided, otherwise fall back to
-    # defaults
+    # Save values of optional entries if provided, otherwise fall back to defaults
     for key, value in optional_entries.items():
         config[key] = user_config.get(key, value)
 

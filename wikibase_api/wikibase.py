@@ -11,10 +11,9 @@ class Wikibase:
 
     def __init__(self, config_path=None):
         """
-        Parse the config object and start a request session with the Wikidata
-        API
-        :param config_path: Path to the configuration file (in case the user
-        does not want to save it at ../config/config.json)
+        Parse the config object and start a request session with the Wikidata API
+        :param config_path: Path to the configuration file (in case the user does not want to save
+        it at ../config/config.json)
         :type config_path: str
         """
         # Use default config path if param is not provided
@@ -47,8 +46,5 @@ class Wikibase:
         :rtype dict
         """
         ids_encoded = "|".join(item_ids)
-        params = {
-            "action": "wbgetentities",
-            "ids": ids_encoded
-        }
+        params = {"action": "wbgetentities", "ids": ids_encoded}
         return self.api.get(params)
