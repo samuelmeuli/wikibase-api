@@ -3,5 +3,5 @@
 	"consumerSecret": "...",
 	"accessToken": "...",
 	"accessSecret": "...",
-	"wikibaseInstance": "..."
+	"apiUrl": "..."
 }

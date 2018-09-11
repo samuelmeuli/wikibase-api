@@ -24,7 +24,7 @@ class Api:
         self.session.params = {"format": "json"}
 
         # Generate base URL for requests
-        self.base_url = config["wikibaseInstance"] + "/api.php"
+        self.base_url = config["apiUrl"]
         self.is_bot = config["isBot"]
         self.summary = config["summary"]
 

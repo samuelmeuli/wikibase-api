@@ -1,13 +1,7 @@
 import json
 
 
-required_entires = [
-    "consumerKey",
-    "consumerSecret",
-    "accessToken",
-    "accessSecret",
-    "wikibaseInstance",
-]
+required_entires = ["consumerKey", "consumerSecret", "accessToken", "accessSecret", "apiUrl"]
 optional_entries = {"isBot": False, "summary": "Modified using wikibase-api for Python"}
 
 
