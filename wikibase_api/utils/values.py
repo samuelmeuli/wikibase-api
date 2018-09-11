@@ -1,4 +1,16 @@
+possible_attributes = [
+    "info",
+    "sitelinks",
+    "sitelinks",
+    "aliases",
+    "labels",
+    "descriptions",
+    "claims",
+    "datatype",
+]
+
 possible_entities = ["item", "property", "lexeme", "form", "sense"]
+
 possible_languages = [
     "aa",
     "ab",
@@ -447,14 +459,4 @@ possible_languages = [
     "zh-tw",
     "zh-yue",
     "zu",
-]
-possible_properties = [
-    "info",
-    "sitelinks",
-    "sitelinks",
-    "aliases",
-    "labels",
-    "descriptions",
-    "claims",
-    "datatype",
 ]

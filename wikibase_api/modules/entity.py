@@ -1,35 +1,35 @@
 import json
 
-from wikibase_api.utils.values import possible_entities, possible_languages, possible_properties
+from wikibase_api.utils.values import possible_attributes, possible_entities, possible_languages
 
 
 class Entity:
     def __init__(self, api):
         self.api = api
 
-    def get_entity(self, entity_id, languages=None, properties=None):
+    def get_entity(self, entity_id, attributes=None, languages=None):
         """
         Get the data of one Wikibase entity
         :param entity_id: Entity identifier (e.g. "Q1")
         :type entity_id: str
-        :param properties: Names of the properties to be fetched from the entity (see
-        possible_properties)
-        :type properties: list(str)
+        :param attributes: Names of the attributes to be fetched from the entity (see
+        possible_attributes)
+        :type attributes: list(str)
         :param languages: Languages to return the fetched data in (see possible_languages)
         :type languages: list(str)
         :return: Response
         :rtype dict
         """
-        return self.get_entities([entity_id], languages=languages, properties=properties)
+        return self.get_entities([entity_id], attributes=attributes, languages=languages)
 
-    def get_entities(self, entity_ids, languages=None, properties=None):
+    def get_entities(self, entity_ids, attributes=None, languages=None):
         """
         Get the data of multiple Wikibase entities
         :param entity_ids: Entity identifiers (e.g. ["Q1", "Q2"])
         :type entity_ids: list(str)
-        :param properties: Names of the properties to be fetched from each entity (see
-        possible_properties)
-        :type properties: list(str)
+        :param attributes: Names of the attributes to be fetched from each entity (see
+        possible_attributes)
+        :type attributes: list(str)
         :param languages: Languages to return the fetched data in (see possible_languages)
         :type languages: list(str)
         :return: Response
@@ -42,13 +42,13 @@ class Entity:
             for lang in languages:
                 if lang not in possible_languages:
                     raise ValueError('"{}" is not in list of allowed languages'.format(lang))
-            params["languages"] = "|".join(properties)
+            params["languages"] = "|".join(attributes)
 
-        if properties is not None:
-            for prop in properties:
-                if prop not in possible_properties:
-                    raise ValueError('"{}" is not in list of allowed properties'.format(prop))
-            params["props"] = "|".join(properties)
+        if attributes is not None:
+            for prop in attributes:
+                if prop not in possible_attributes:
+                    raise ValueError('"{}" is not in list of allowed attributes'.format(prop))
+            params["props"] = "|".join(attributes)
 
         return self.api.get(params)
 
