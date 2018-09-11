@@ -51,7 +51,8 @@ class Api:
         :return: Response object
         :rtype dict
         """
-        params["bot"] = self.is_bot
+        if self.is_bot:
+            params["bot"] = True
         params["summary"] = self.summary
         body = {"token": self.edit_token}
         r = self.session.post(url=self.base_url, params=params, data=body)

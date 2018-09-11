@@ -82,5 +82,7 @@ class Entity:
         :return:
         """
         content_str = json.dumps(content)
-        params = {"action": "wbeditentity", "id": entity_id, "data": content_str, "clear": clear}
+        params = {"action": "wbeditentity", "id": entity_id, "data": content_str}
+        if clear:
+            params["clear"] = True
         return self.api.post(params)
