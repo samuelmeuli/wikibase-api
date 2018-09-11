@@ -8,7 +8,7 @@ required_entires = [
     "accessSecret",
     "wikibaseInstance",
 ]
-optional_entries = {"isBot": False}
+optional_entries = {"isBot": False, "summary": "Modified using wikibase-api for Python"}
 
 
 def get_config(config_path):
