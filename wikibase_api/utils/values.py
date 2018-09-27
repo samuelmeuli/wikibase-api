@@ -1,7 +1,6 @@
 possible_attributes = [
     "info",
     "sitelinks",
-    "sitelinks",
     "aliases",
     "labels",
     "descriptions",
