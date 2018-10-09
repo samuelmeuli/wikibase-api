@@ -15,21 +15,27 @@ class Api:
         """
         # Set up request session
         self.session = requests.Session()
-        self.session.auth = OAuth1(
-            config["consumerKey"],
-            config["consumerSecret"],
-            config["accessToken"],
-            config["accessSecret"],
-        )
         self.session.params = {"format": "json"}
-
-        # Generate base URL for requests
         self.base_url = config["apiUrl"]
         self.is_bot = config["isBot"]
         self.summary = config["summary"]
 
-        # Fetch edit token for POST requests
-        self.edit_token = self.get_edit_token()
+        if "oauth" in config:
+            # OAuth
+            oauth_config = config["oauth"]
+            self.session.auth = OAuth1(
+                oauth_config["consumerKey"],
+                oauth_config["consumerSecret"],
+                oauth_config["accessToken"],
+                oauth_config["accessSecret"],
+            )
+            self.edit_token = self.get_token("csrf")  # Get edit token for POST requests
+        else:
+            # Login
+            login_config = config["login"]
+            login_token = self.get_token("login")  # Get login token
+            self.login(login_config["botUsername"], login_config["botPassword"], login_token)
+            self.edit_token = self.get_token("csrf")  # Get edit token for POST requests
 
     def get(self, params):
         """
@@ -59,12 +65,42 @@ class Api:
         r.raise_for_status()  # Raise exception if status code indicates error
         return r.json()
 
-    def get_edit_token(self):
+    def get_token(self, token_type):
         """
-        Authenticate with OAuth and request an edit token (required for future POST requests)
-        :return: Edit token
-        :rtype str
+        Request edit (CSRF) or login token
+        :param token_type: Token type (either "csrf" or "login")
+        :type token_type: str
+        :return: token
+        :rtype: str
         """
-        params = {"action": "query", "meta": "tokens"}
+        if token_type != "csrf" and token_type != "login":
+            raise ValueError('Token type must be either "csrf" or "login"')
+
+        params = {"action": "query", "meta": "tokens", "type": token_type}
         r = self.get(params)
-        return r["query"]["tokens"]["csrftoken"]
+        return r["query"]["tokens"][token_type + "token"]
+
+    def login(self, bot_username, bot_password, token):
+        """
+        Log in user with bot username and bot password (alternative to OAuth) to set auth cookies
+        :param bot_username: Bot username
+        :type bot_username: str
+        :param bot_password: Bot password
+        :type bot_password: str
+        :param token: Login token (see get_token function)
+        :type token: str
+        """
+        params = {
+            "action": "login",
+            "lgname": bot_username,
+            "lgpassword": bot_password,
+            "lgtoken": token,
+        }
+        r = self.session.post(url=self.base_url, data=params)
+        r.raise_for_status()  # Raise exception if status code indicates error
+        data = r.json()
+
+        if "login" not in data:
+            raise ValueError("Login error: " + str(data))
+        if data["login"]["result"] != "Success":
+            raise ValueError("Login error: Incorrect username or password")
