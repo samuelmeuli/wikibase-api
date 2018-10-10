@@ -78,8 +78,16 @@ class Api:
             raise ValueError('Token type must be either "csrf" or "login"')
 
         params = {"action": "query", "meta": "tokens", "type": token_type}
-        r = self.get(params)
-        return r["query"]["tokens"][token_type + "token"]
+        data = self.get(params)
+
+        if "query" not in data or "tokens" not in data["query"]:
+            raise ValueError(
+                "Could not obtain {} token due to authentication error: {}".format(
+                    token_type, str(data)
+                )
+            )
+
+        return data["query"]["tokens"][token_type + "token"]
 
     def login(self, bot_username, bot_password, token):
         """
