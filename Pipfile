@@ -8,11 +8,17 @@ requests = "*"
 requests-oauthlib = "*"
 
 [dev-packages]
-pre-commit = "*"
+black = "*"
+"flake8" = "*"
 
 [requires]
 python_version = "3.6"
 
 [scripts]
-format = "pipenv run pre-commit run --all-files"
+init = "git config core.hooksPath .hooks"
+format = "black . --line-length=100"
+lint = "flake8 . --max-line-length=100"
 test = "pipenv run python -m unittest discover tests"
+
+[pipenv]
+allow_prereleases = true
