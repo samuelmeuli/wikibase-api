@@ -10,6 +10,7 @@ requests-oauthlib = "*"
 [dev-packages]
 black = "*"
 "flake8" = "*"
+pytest = "*"
 
 [requires]
 python_version = "3.6"
@@ -18,7 +19,7 @@ python_version = "3.6"
 init = "git config core.hooksPath .hooks"
 format = "black . --line-length=100"
 lint = "flake8 . --max-line-length=100"
-test = "pipenv run python -m unittest discover tests"
+test = "pytest -s"
 
 [pipenv]
 allow_prereleases = true

@@ -23,10 +23,10 @@ class Wikibase:
             config_path = current_dir + "/../config/config.json"
 
         # Load options from config file
-        config = get_config(config_path)
+        self.config = get_config(config_path)
 
         # Set up API session
-        api = Api(config)
+        api = Api(self.config)
 
         # Load API modules
         self.entity = Entity(api)
