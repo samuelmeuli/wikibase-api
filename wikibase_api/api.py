@@ -11,7 +11,8 @@ class Api:
         """
         Create a session with the Wikibase API on class creation and set the authorization header
         and params which remain the same for all future requests
-        :param config: Configuration dict as defined in ./config.py
+        :param config: Configuration options
+        :type config: dict
         """
         # Set up request session
         self.session = requests.Session()

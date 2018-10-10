@@ -75,7 +75,8 @@ class Entity:
         :type entity_id: str
         :param content: Content to add to the entity
         :type content: dict
-        :return:
+        :return: Response
+        :rtype dict
         """
         content_str = json.dumps(content)
         params = {"action": "wbeditentity", "id": entity_id, "data": content_str}
