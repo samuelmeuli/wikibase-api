@@ -15,25 +15,25 @@ class Api:
         # Set up request session
         self.session = requests.Session()
         self.session.params = {"format": "json"}
-        self.base_url = config["apiUrl"]
-        self.is_bot = config["isBot"]
+        self.base_url = config["api_url"]
+        self.is_bot = config["is_bot"]
         self.summary = config["summary"]
 
-        if "oauth" in config:
+        if "oauth_credentials" in config:
             # OAuth
-            oauth_config = config["oauth"]
+            oauth_config = config["oauth_credentials"]
             self.session.auth = OAuth1(
-                oauth_config["consumerKey"],
-                oauth_config["consumerSecret"],
-                oauth_config["accessToken"],
-                oauth_config["accessSecret"],
+                oauth_config["consumer_key"],
+                oauth_config["consumer_secret"],
+                oauth_config["access_token"],
+                oauth_config["access_secret"],
             )
             self.edit_token = self.get_token("csrf")  # Get edit token for POST requests
         else:
             # Login
-            login_config = config["login"]
+            login_config = config["login_credentials"]
             login_token = self.get_token("login")  # Get login token
-            self.login(login_config["botUsername"], login_config["botPassword"], login_token)
+            self.login(login_config["bot_username"], login_config["bot_password"], login_token)
             self.edit_token = self.get_token("csrf")  # Get edit token for POST requests
 
     def get(self, params):

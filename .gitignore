@@ -4,9 +4,6 @@
 # Logs
 *.log
 
-# Configuration
-config/config.json
-
 # Python
 __pycache__/
 *.pyc
@@ -17,4 +14,5 @@ __pycache__/
 docs/_build/
 
 # Tests
+tests/config.json
 .pytest_cache/

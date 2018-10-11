@@ -1,65 +1,31 @@
-import json
+required_oauth_entries = ["consumer_key", "consumer_secret", "access_token", "access_secret"]
+required_login_entries = ["bot_username", "bot_password"]
 
 
-required_root_entries = ["apiUrl"]
-required_oauth_entries = ["consumerKey", "consumerSecret", "accessToken", "accessSecret"]
-required_login_entries = ["botUsername", "botPassword"]
-optional_entries = {"isBot": False, "summary": "Modified using wikibase-api for Python"}
-
-
-def get_config(config_path):
-    """Load values from configuration file; make sure required values are present and fall back to
-    defaults for optional ones
-
-    :param config_path: Path to config.json file
-    :type config_path: str
-    :return: config
-    :rtype: dict
+def verify_auth_info(oauth_credentials, login_credentials):
     """
-    config = {}
-
-    # Load config.json into user_config dict
-    try:
-        with open(config_path) as file:
-            user_config = json.load(file)
-    except FileNotFoundError:
-        raise FileNotFoundError(
-            'Config file missing. Please create a config file at "{}" or specify the correct '
-            "config path".format(config_path)
-        )
-
-    # Save values of required entries, raise exception if missing
-    for key in required_root_entries:
-        config[key] = _get_property(key, user_config)
-
-    # Save values of optional entries if provided, otherwise fall back to defaults
-    for key, value in optional_entries.items():
-        config[key] = user_config.get(key, value)
-
-    # Check that information about exactly one authentication method is present and save the values
-    if "oauth" not in user_config and "login" not in user_config:
+    Verify that the provided authentication credentials are of the correct form (i.e. exactly one
+    authentication method is specified and the corresponding parameter contains the correct keys)
+    """
+    if oauth_credentials is None and login_credentials is None:
         raise KeyError(
-            'Authentication information missing in the configuration file (either "oauth" or '
-            '"login" entries)'
+            'Authentication information missing: Either the "oauth_credentials" or the '
+            '"login_credentials" parameter must be provided to the Wikibase class'
         )
-    if "oauth" in user_config and "login" in user_config:
+    if oauth_credentials is not None and login_credentials is not None:
         raise KeyError(
-            "Only one authentication method may be present in the configuration file (either "
-            '"oauth" or "login")'
+            'Authentication information conflict: Only one of the "oauth_credentials" and the '
+            '"login_credentials" parameters must be provided to the Wikibase class'
         )
-    if "oauth" in user_config:
-        config["oauth"] = {}
+    if oauth_credentials is not None:
         for key in required_oauth_entries:
-            config["oauth"][key] = _get_property(key, user_config["oauth"])
+            if key not in oauth_credentials:
+                raise KeyError(
+                    'Key "{}" is missing in the "oauth_credentials" parameter'.format(key)
+                )
     else:
-        config["login"] = {}
         for key in required_login_entries:
-            config["login"][key] = _get_property(key, user_config["login"])
-
-    return config
-
-
-def _get_property(key, config):
-    if key not in config:
-        raise KeyError('Key "{}" is missing in configuration file'.format(key))
-    return config[key]
+            if key not in login_credentials:
+                raise KeyError(
+                    'Key "{}" is missing in the "login_credentials" parameter'.format(key)
+                )
