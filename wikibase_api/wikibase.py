@@ -1,18 +1,20 @@
 import os
 
 from .api import Api
-from .modules import Entity
+from .models import Entity
 from .utils.config import get_config
 
 
 class Wikibase:
     """
-    Wrapper library for the Wikibase API
+    Wrapper library for the Wikibase API::
+
+        wikibase = new Wikibase()
     """
 
     def __init__(self, config_path=None):
-        """
-        Parse the config object and start a request session with the Wikidata API
+        """Parse the config object and start a request session with the Wikidata API
+
         :param config_path: Path to the configuration file (in case the user does not want to save
         it at ../config/config.json)
         :type config_path: str
@@ -28,5 +30,10 @@ class Wikibase:
         # Set up API session
         api = Api(self.config)
 
-        # Load API modules
         self.entity = Entity(api)
+        """An instance of :class:`.Entity`. See the documentation of the class for all available
+        entity functions.::
+
+           r = wikibase.entity.get_entity("Q1")
+           print(r)
+        """

@@ -8,9 +8,9 @@ optional_entries = {"isBot": False, "summary": "Modified using wikibase-api for 
 
 
 def get_config(config_path):
-    """
-    Load values from configuration file; make sure required values are present and fall back to
+    """Load values from configuration file; make sure required values are present and fall back to
     defaults for optional ones
+
     :param config_path: Path to config.json file
     :type config_path: str
     :return: config
@@ -60,15 +60,6 @@ def get_config(config_path):
 
 
 def _get_property(key, config):
-    """
-    Return key from specified dict and raise exception if it doesn't exist
-    :param key: Key name
-    :type key: str
-    :param config: Dict to check for key
-    :type config: dict
-    :return: Key
-    :rtype: varies
-    """
     if key not in config:
         raise KeyError('Key "{}" is missing in configuration file'.format(key))
     return config[key]

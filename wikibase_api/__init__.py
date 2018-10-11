@@ -1,4 +1,4 @@
 from .wikibase import Wikibase
 
 
-__all__ = [Wikibase]
+__all__ = ["Wikibase"]

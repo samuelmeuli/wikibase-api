@@ -3,14 +3,12 @@ from requests_oauthlib import OAuth1
 
 
 class Api:
-    """
-    Class for connecting to the Wikibase API
-    """
+    """Class for connecting to the Wikibase API"""
 
     def __init__(self, config):
-        """
-        Create a session with the Wikibase API on class creation and set the authorization header
+        """Create a session with the Wikibase API on class creation and set the authorization header
         and params which remain the same for all future requests
+
         :param config: Configuration options
         :type config: dict
         """
@@ -39,20 +37,19 @@ class Api:
             self.edit_token = self.get_token("csrf")  # Get edit token for POST requests
 
     def get(self, params):
-        """
-        Make a GET request to the Wikibase API
+        """Make a GET request to the Wikibase API
+
         :param params: Query parameters to be encoded in the URL
         :type params: dict
         :return: Response object
-        :rtype dict
         """
         r = self.session.get(url=self.base_url, params=params)
         r.raise_for_status()  # Raise exception if status code indicates error
         return r.json()
 
     def post(self, params):
-        """
-        Make a POST request to the Wikibase API
+        """Make a POST request to the Wikibase API
+
         :param params: Query parameters to be encoded in the URL
         :type params: dict
         :return: Response object
@@ -67,8 +64,8 @@ class Api:
         return r.json()
 
     def get_token(self, token_type):
-        """
-        Request edit (CSRF) or login token
+        """Request edit (CSRF) or login token
+
         :param token_type: Token type (either "csrf" or "login")
         :type token_type: str
         :return: token
@@ -90,8 +87,8 @@ class Api:
         return data["query"]["tokens"][token_type + "token"]
 
     def login(self, bot_username, bot_password, token):
-        """
-        Log in user with bot username and bot password (alternative to OAuth) to set auth cookies
+        """Log in user with bot username and bot password (alternative to OAuth) to set auth cookies
+
         :param bot_username: Bot username
         :type bot_username: str
         :param bot_password: Bot password
