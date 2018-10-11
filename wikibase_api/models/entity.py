@@ -9,25 +9,11 @@ class Entity:
     def __init__(self, api):
         self.api = api
 
-    def get_entity(self, entity_id, attributes=None, languages=None):
-        """Get the data of one Wikibase entity
-
-        :param entity_id: Entity identifier (e.g. "Q1")
-        :type entity_id: str
-        :param attributes: Names of the attributes to be fetched from the entity (e.g. "claims")
-        :type attributes: list(str)
-        :param languages: Languages to return the fetched data in (e.g. "en")
-        :type languages: list(str)
-        :return: Response
-        :rtype: dict
-        """
-        return self.get_entities([entity_id], attributes=attributes, languages=languages)
-
-    def get_entities(self, entity_ids, attributes=None, languages=None):
+    def get(self, entity_ids, attributes=None, languages=None):
         """Get the data of multiple Wikibase entities
 
-        :param entity_ids: Entity identifiers (e.g. ["Q1", "Q2"])
-        :type entity_ids: list(str)
+        :param entity_ids: Entity identifier(s) (e.g. "Q1" or ["Q1", "Q2"])
+        :type entity_ids: str or list(str)
         :param attributes: Names of the attributes to be fetched from each entity (e.g. "claims")
         :type attributes: list(str)
         :param languages: Languages to return the fetched data in (e.g. "en")
@@ -35,7 +21,10 @@ class Entity:
         :return: Response
         :rtype: dict
         """
-        ids_encoded = "|".join(entity_ids)
+        if isinstance(entity_ids, str):
+            ids_encoded = entity_ids
+        else:
+            ids_encoded = "|".join(entity_ids)
         params = {"action": "wbgetentities", "ids": ids_encoded}
 
         if languages is not None:
@@ -52,7 +41,7 @@ class Entity:
 
         return self.api.get(params)
 
-    def create_entity(self, entity_type, content=None):
+    def create(self, entity_type, content=None):
         """Create a new Wikibase entity
 
         :param entity_type: Type of entity to be created (e.g. "item")
@@ -70,7 +59,7 @@ class Entity:
         params = {"action": "wbeditentity", "new": entity_type, "data": content_str}
         return self.api.post(params)
 
-    def edit_entity(self, entity_id, content):
+    def edit(self, entity_id, content):
         """Modify an existing Wikibase entity
 
         :param entity_id: Entity identifier (e.g. "Q1")

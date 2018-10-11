@@ -36,7 +36,7 @@ class Wikibase:
 
     You can now perform queries or make edits using the Wikibase API::
 
-        r = wikibase.entity.get_entity("Q1")
+        r = wikibase.entity.get("Q1")
         print(r)
 
     Output::
@@ -96,6 +96,6 @@ class Wikibase:
         """An instance of :class:`.Entity`. See the documentation of the class for all available
         entity functions::
 
-            r = wikibase.entity.get_entity("Q1")
+            r = wikibase.entity.get("Q1")
             print(r)
         """
