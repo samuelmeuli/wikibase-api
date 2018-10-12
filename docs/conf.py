@@ -21,5 +21,4 @@ source_suffix = ".rst"
 
 # HTML output
 html_theme = "sphinx_rtd_theme"
-html_static_path = ["_static"]
 htmlhelp_basename = project

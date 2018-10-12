@@ -10,7 +10,7 @@ config_path = os.path.join(current_dir, "config.json")
 
 
 @pytest.fixture(scope="session", autouse=True)
-def wikibase():
+def wb():
     # Load Wikibase class parameters from config.json file
     try:
         with open(config_path) as file:
@@ -32,8 +32,10 @@ def wikibase():
 
     # Return new instance of the API wrapper
     try:
-        wb = Wikibase(api_url=config["api_url"], oauth_credentials=config["oauth_credentials"])
+        wikibase = Wikibase(
+            api_url=config["api_url"], oauth_credentials=config["oauth_credentials"]
+        )
     except Exception as e:
         pytest.exit("Could not create Wikibase object: " + str(e))
 
-    return wb
+    return wikibase

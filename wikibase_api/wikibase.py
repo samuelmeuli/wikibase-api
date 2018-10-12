@@ -14,29 +14,29 @@ class Wikibase:
 
         from wikibase_api import Wikibase
 
-        wikibase = Wikibase(
-            oauth_credentials={
-                "consumer_key": "...",
-                "consumer_secret": "...",
-                "access_token": "...",
-                "access_secret": "...",
-            }
-        )
+        oauth_credentials = {
+            "consumer_key": "...",
+            "consumer_secret": "...",
+            "access_token": "...",
+            "access_secret": "...",
+        }
+
+        wb = Wikibase(oauth_credentials=oauth_credentials)
 
     b. **Bot username and password**::
 
         from wikibase_api import Wikibase
 
-        wikibase = Wikibase(
-            login_credentials={
-                "bot_username": "...",
-                "bot_password": "...",
-            }
-        )
+        login_credentials = {
+            "bot_username": "...",
+            "bot_password": "...",
+        }
+
+        wb = Wikibase(login_credentials=login_credentials)
 
     You can now perform queries or make edits using the Wikibase API::
 
-        r = wikibase.entity.get("Q1")
+        r = wb.entity.get("Q1")
         print(r)
 
     Output::
@@ -93,9 +93,3 @@ class Wikibase:
         api = Api(config)
 
         self.entity = Entity(api)
-        """An instance of :class:`.Entity`. See the documentation of the class for all available
-        entity functions::
-
-            r = wikibase.entity.get("Q1")
-            print(r)
-        """

@@ -1,20 +1,34 @@
 Welcome to the wikibase-api documentation!
 ==========================================
 
+TODO introduction
+
+
+.. _getting_started:
 .. toctree::
-    :maxdepth: 2
-    :caption: Contents:
+    :maxdepth: 1
+    :caption: Getting Started
 
-.. automodule:: wikibase_api
-    :members:
+    getting_started/installation
 
-.. automodule:: wikibase_api.models
-    :members:
+.. _api_reference:
+.. toctree::
+    :maxdepth: 1
+    :caption: API reference
 
+    api_reference/the_wikibase_class
 
-Indices and tables
-==================
+.. _guides:
+.. toctree::
+    :maxdepth: 1
+    :caption: Guides
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+    guides/local_wikibase_instance
+    guides/more_information
+
+.. _development:
+.. toctree::
+    :maxdepth: 1
+    :caption: Development
+
+    development/development

@@ -42,6 +42,7 @@ class Api:
         :param params: Query parameters to be encoded in the URL
         :type params: dict
         :return: Response object
+        :rtype: dict
         """
         r = self.session.get(url=self.base_url, params=params)
         r.raise_for_status()  # Raise exception if status code indicates error
@@ -53,7 +54,7 @@ class Api:
         :param params: Query parameters to be encoded in the URL
         :type params: dict
         :return: Response object
-        :rtype dict
+        :rtype: dict
         """
         if self.is_bot:
             params["bot"] = True
