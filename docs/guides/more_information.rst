@@ -1,3 +1,5 @@
+.. _more_information:
+
 More information
 ================
 

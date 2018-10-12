@@ -1,3 +1,5 @@
+.. _installation_and_usage:
+
 Installation and Usage
 ======================
 
@@ -20,10 +22,9 @@ To access the API, simply create an instance of the :class:`.Wikibase` class::
 
 
 .. note::
-
     The Wikibase instance which is accessed by default is Wikidata. To use another instance, e.g. a local one for testing, set the ``api_url`` parameter accordingly.
 
-    You can find a guide on how to set up your own instance locally using Docker `here <../guides/local_wikibase_instance.html>`__.
+    You can find a guide on how to set up your own instance locally using Docker under :ref:`local_wikibase_instance`.
 
 Before being able to make requests, you need to authenticate yourself to the API. You have two options:
 
@@ -61,7 +62,8 @@ Now, you can create an instance of the :class:`.Wikibase` class using your newly
 
     wb = Wikibase(oauth_credentials=oauth_credentials)
 
-Please note Wikimedia's `OAuth app guidelines <https://meta.wikimedia.org/wiki/OAuth_app_guidelines>`_.
+.. note::
+    Some additional steps are required when using OAuth on a local Wikibase instance (see :ref:`oauth_on_local_wikibase_instance`).
 
 
 b) User Login
@@ -109,4 +111,4 @@ Output::
       "success": 1,
     }
 
-For a list of all available API functions, have a look at the `API reference <../api_reference/the_wikibase_class.html>`__.
+For a list of all available API functions, have a look at the :ref:`api_reference`.

@@ -22,7 +22,7 @@ Next, use `wikibase-docker <https://github.com/wmde/wikibase-docker>`_ to set up
 3. Set up the Docker containers: ``docker-compose pull``
 4. Start the containers: ``docker-compose up``
 
-After a while, you should have the Wikibase instance up and running. The MediaWiki can be accessed on ``localhost:8181`` and the UI for the SPARQL query service at ``localhost:8282``.
+After a while, you should have the Wikibase instance up and running. The MediaWiki can be accessed on http://localhost:8181 and the UI for the SPARQL query service at http://localhost:8282.
 
 
 Adding content
@@ -35,4 +35,21 @@ Right now, your Wikibase instance doesn't contain any data, so most API methods 
 3. To import all Wikibase properties into your local instance, run ``php extensions/WikibaseImport/maintenance/importEntities.php --all-properties``. This will take a while
 4. To import some Wikibase entities, run a command like ``php extensions/WikibaseImport/maintenance/importEntities.php --range Q1:Q20``
 
-After that, you can view the imported entities in your local MediaWiki, e.g. entity ``Q10`` on ``http://localhost:8181/wiki/Item:Q10``.
+After that, you can view the imported entities in your local MediaWiki, e.g. entity ``Q10`` on http://localhost:8181/wiki/Item:Q10.
+
+
+.. _oauth_on_local_wikibase_instance:
+
+OAuth on local Wikibase instance
+--------------------------------
+
+To use OAuth on the local Wikibase instance, some additional steps are required.
+
+1. Create a user account on the MediaWiki interface (http://localhost:8181)
+2. List your Docker containers using ``docker ps``. Copy the ID of the ``wikibase/wikibase`` container
+3. Use ``docker exec -t -i CONTAINER_ID /bin/bash`` to execute the following commands in the running Wikibase container:
+
+    * Verify the user's password using ``php maintenance/resetUserEmail.php --no-reset-password YOUR_USERNAME YOUR_EMAIL``
+    * Grant your user admin rights: ``php maintenance/createAndPromote.php --sysop YOUR_USERNAME --force``
+
+4. Navigate to http://localhost:8181/wiki/Special:OAuthConsumerRegistration and continue with the steps described under :ref:`installation_and_usage`.

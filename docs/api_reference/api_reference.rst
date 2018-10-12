@@ -1,7 +1,7 @@
-.. _the_wikibase_class:
+.. _api_reference:
 
-The Wikibase Class
-==================
+API Reference
+=============
 
 .. autoclass:: wikibase_api.Wikibase
     :inherited-members:
