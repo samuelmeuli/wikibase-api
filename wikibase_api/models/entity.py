@@ -10,13 +10,14 @@ class Entity:
         self.api = api
 
     def get(self, entity_ids, attributes=None, languages=None):
-        """Get the data of multiple Wikibase entities
+        """Get the data of one or multiple Wikibase entities
 
-        :param entity_ids: Entity identifier(s) (e.g. "Q1" or ["Q1", "Q2"])
+        :param entity_ids: Entity identifier(s) (e.g. ``"Q1"`` or ``["Q1", "Q2"]``)
         :type entity_ids: str or list(str)
-        :param attributes: Names of the attributes to be fetched from each entity (e.g. "claims")
+        :param attributes: Names of the attributes to be fetched from each entity (e.g.
+            ``"claims"``)
         :type attributes: list(str)
-        :param languages: Languages to return the fetched data in (e.g. "en")
+        :param languages: Languages to return the fetched data in (e.g. ``"en"``)
         :type languages: list(str)
         :return: Response
         :rtype: dict
@@ -44,7 +45,7 @@ class Entity:
     def create(self, entity_type, content=None):
         """Create a new Wikibase entity
 
-        :param entity_type: Type of entity to be created (e.g. "item")
+        :param entity_type: Type of entity to be created (e.g. ``"item"``)
         :type entity_type: str
         :param content: Content of the new entity
         :type content: dict
@@ -59,10 +60,10 @@ class Entity:
         params = {"action": "wbeditentity", "new": entity_type, "data": content_str}
         return self.api.post(params)
 
-    def edit(self, entity_id, content):
-        """Modify an existing Wikibase entity
+    def update(self, entity_id, content):
+        """Modify the specified Wikibase entity
 
-        :param entity_id: Entity identifier (e.g. "Q1")
+        :param entity_id: Entity identifier (e.g. ``"Q1"``)
         :type entity_id: str
         :param content: Content to add to the entity
         :type content: dict
@@ -71,4 +72,19 @@ class Entity:
         """
         content_str = json.dumps(content)
         params = {"action": "wbeditentity", "id": entity_id, "data": content_str}
+        return self.api.post(params)
+
+    def delete(self, entity_id, reason=None):
+        """Delete the specified Wikibase entity
+
+        :param entity_id: Entity identifier (e.g. ``"Q1"``)
+        :type entity_id: str
+        :param reason: Reason for the deletion (if not set, Wikibase will use an automatically
+            generated reason)
+        :return: Response
+        :rtype: dict
+        """
+        params = {"action": "delete", "title": "Item:" + entity_id}
+        if reason is not None:
+            params["reason"] = reason
         return self.api.post(params)
