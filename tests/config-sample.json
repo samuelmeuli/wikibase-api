@@ -1,0 +1,13 @@
+{
+	"api_url": "http://localhost:8181/w/api.php",
+	"oauth_credentials": {
+		"consumer_key": "",
+		"consumer_secret": "",
+		"access_token": "",
+		"access_secret": ""
+	},
+	"login_credentials": {
+		"bot_username": "",
+		"bot_password": ""
+	}
+}
