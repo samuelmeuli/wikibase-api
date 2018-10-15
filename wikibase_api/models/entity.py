@@ -1,6 +1,10 @@
 import json
 
-from wikibase_api.utils.values import possible_attributes, possible_entities, possible_languages
+from wikibase_api.utils.possible_values import (
+    possible_attributes,
+    possible_entities,
+    possible_languages,
+)
 
 
 class Entity:

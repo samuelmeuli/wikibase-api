@@ -459,3 +459,5 @@ possible_languages = [
     "zh-yue",
     "zu",
 ]
+
+possible_ranks = ["preferred", "normal", "deprecated"]

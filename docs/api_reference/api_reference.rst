@@ -10,4 +10,5 @@ API Reference
     :maxdepth: 2
     :caption: Models
 
+    models/claim
     models/entity

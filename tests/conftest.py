@@ -43,7 +43,7 @@ def wb():
 
 
 @pytest.fixture(scope="class")
-def item(wb):
+def item_id(wb):
     # Create entity
     r = wb.entity.create("item", content=content)
     assert type(r) is dict
