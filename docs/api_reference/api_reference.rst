@@ -13,3 +13,4 @@ API Reference
     models/claim
     models/description
     models/entity
+    models/label
