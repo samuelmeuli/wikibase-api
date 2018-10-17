@@ -11,4 +11,5 @@ API Reference
     :caption: Models
 
     models/claim
+    models/description
     models/entity
