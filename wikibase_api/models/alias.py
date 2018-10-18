@@ -1,4 +1,4 @@
-from wikibase_api.utils.possible_values import possible_languages
+from wikibase_api.utils.validate_value import validate_value
 
 
 class Alias:
@@ -19,8 +19,7 @@ class Alias:
         :return: Response
         :rtype: dict
         """
-        if language not in possible_languages:
-            raise ValueError('"{}" is not in list of allowed languages'.format(language))
+        validate_value(language, "language")
 
         if isinstance(aliases, str):
             aliases_encoded = aliases
@@ -47,8 +46,7 @@ class Alias:
         :return: Response
         :rtype: dict
         """
-        if language not in possible_languages:
-            raise ValueError('"{}" is not in list of allowed languages'.format(language))
+        validate_value(language, "language")
 
         if isinstance(aliases, str):
             aliases_encoded = aliases
@@ -75,8 +73,7 @@ class Alias:
         :return: Response
         :rtype: dict
         """
-        if language not in possible_languages:
-            raise ValueError('"{}" is not in list of allowed languages'.format(language))
+        validate_value(language, "language")
 
         if isinstance(aliases, str):
             aliases_encoded = aliases

@@ -1,10 +1,6 @@
 import json
 
-from wikibase_api.utils.possible_values import (
-    possible_attributes,
-    possible_entities,
-    possible_languages,
-)
+from wikibase_api.utils.validate_value import validate_value
 
 
 class Entity:
@@ -34,14 +30,12 @@ class Entity:
 
         if languages is not None:
             for lang in languages:
-                if lang not in possible_languages:
-                    raise ValueError('"{}" is not in list of allowed languages'.format(lang))
+                validate_value(lang, "language")
             params["languages"] = "|".join(attributes)
 
         if attributes is not None:
             for prop in attributes:
-                if prop not in possible_attributes:
-                    raise ValueError('"{}" is not in list of allowed attributes'.format(prop))
+                validate_value(prop, "attribute")
             params["props"] = "|".join(attributes)
 
         return self.api.get(params)
@@ -56,8 +50,7 @@ class Entity:
         :return: Response
         :rtype: dict
         """
-        if entity_type not in possible_entities:
-            raise ValueError('"entity_type" must be set to one of ' + ", ".join(possible_entities))
+        validate_value(entity_type, "entity")
         if content is None:
             content = {}
         content_str = json.dumps(content)
@@ -108,10 +101,9 @@ class Entity:
         :return: Response
         :rtype: dict
         """
-        if language not in possible_languages:
-            raise ValueError('"{}" is not in list of allowed languages'.format(language))
-        if entity_type is not None and entity_type not in possible_entities:
-            raise ValueError('"entity_type" must be set to one of ' + ", ".join(possible_entities))
+        validate_value(language, "language")
+        if entity_type is not None:
+            validate_value(entity_type, "entity")
 
         params = {
             "action": "wbsearchentities",

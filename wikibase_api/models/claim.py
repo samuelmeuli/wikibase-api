@@ -1,6 +1,6 @@
 import json
 
-from wikibase_api.utils.possible_values import possible_ranks
+from wikibase_api.utils.validate_value import validate_value
 
 
 class Claim:
@@ -28,8 +28,7 @@ class Claim:
             params["property"] = property_id
 
         if rank is not None:
-            if rank not in possible_ranks:
-                raise ValueError('"rank" must be set to one of ' + ", ".join(possible_ranks))
+            validate_value(rank, "rank")
             params["rank"] = rank
 
         return self.api.get(params)

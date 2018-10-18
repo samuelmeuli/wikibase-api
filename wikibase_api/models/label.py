@@ -1,4 +1,4 @@
-from wikibase_api.utils.possible_values import possible_languages
+from wikibase_api.utils.validate_value import validate_value
 
 
 class Label:
@@ -19,8 +19,6 @@ class Label:
         :return: Response
         :rtype: dict
         """
-        if language not in possible_languages:
-            raise ValueError('"{}" is not in list of allowed languages'.format(language))
-
+        validate_value(language, "language")
         params = {"action": "wbsetlabel", "id": entity_id, "language": language, "value": label}
         return self.api.post(params)

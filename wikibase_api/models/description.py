@@ -1,4 +1,4 @@
-from wikibase_api.utils.possible_values import possible_languages
+from wikibase_api.utils.validate_value import validate_value
 
 
 class Description:
@@ -20,8 +20,7 @@ class Description:
         :return: Response
         :rtype: dict
         """
-        if language not in possible_languages:
-            raise ValueError('"{}" is not in list of allowed languages'.format(language))
+        validate_value(language, "language")
 
         params = {
             "action": "wbsetdescription",
