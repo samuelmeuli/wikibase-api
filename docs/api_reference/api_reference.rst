@@ -15,4 +15,5 @@ API Reference
     models/description
     models/entity
     models/label
+    models/qualifier
     models/reference
