@@ -7,7 +7,12 @@ from wikibase_api import Wikibase
 
 current_dir = os.path.dirname(os.path.realpath(__file__))
 config_path = os.path.join(current_dir, "config.json")
-content = {"labels": {"en": {"language": "en", "value": "Test item"}}}
+
+sample_item_content = {"labels": {"en": {"language": "en", "value": "Test item"}}}
+sample_property_content = {
+    "datatype": "string",
+    "labels": {"en": {"language": "en", "value": "Test property"}},
+}
 
 
 @pytest.fixture(scope="session")
@@ -42,20 +47,39 @@ def wb():
     return wikibase
 
 
-@pytest.fixture(scope="class")
+@pytest.fixture(scope="function")
 def item_id(wb):
-    # Create entity
-    r = wb.entity.create("item", content=content)
+    # Create item
+    r = wb.entity.create("item", content=sample_item_content)
+    assert r["success"] == 1
+    assert r["entity"]["labels"] == sample_item_content["labels"]
+    entity_id = r["entity"]["id"]
+    assert type(entity_id) is str
+
+    # Pass entity_id to test function and wait for it to finish
+    yield entity_id
+
+    # Delete item
+    title = "Item:" + entity_id
+    r = wb.entity.delete(title)
+    assert "errors" not in r
+    assert r["delete"]["title"] == title
+
+
+@pytest.fixture(scope="function")
+def property_id(wb):
+    # Create property
+    r = wb.entity.create("property", content=sample_property_content)
     assert type(r) is dict
     assert r["success"] == 1
-    assert r["entity"]["labels"] == content["labels"]
-    item_id = r["entity"]["id"]
-    assert type(item_id) is str
+    entity_id = r["entity"]["id"]
+    assert type(entity_id) is str
 
-    # Pass item_id to test function and wait for it to finish
-    yield item_id
+    # Pass entity_id to test function and wait for it to finish
+    yield entity_id
 
-    # Delete entity
-    r = wb.entity.delete(item_id)
+    # Delete property
+    title = "Property:" + entity_id
+    r = wb.entity.delete(title)
     assert "errors" not in r
-    assert r["delete"]["title"] == "Item:" + item_id
+    assert r["delete"]["title"] == title
