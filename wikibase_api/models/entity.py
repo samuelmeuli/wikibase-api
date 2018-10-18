@@ -46,7 +46,7 @@ class Entity:
 
         return self.api.get(params)
 
-    def create(self, entity_type, content=None):
+    def add(self, entity_type, content=None):
         """Create a new Wikibase entity
 
         :param entity_type: Type of entity to be created (e.g. ``"item"``)
@@ -78,7 +78,7 @@ class Entity:
         params = {"action": "wbeditentity", "id": entity_id, "data": content_str}
         return self.api.post(params)
 
-    def delete(self, title, reason=None):
+    def remove(self, title, reason=None):
         """Delete the specified Wikibase entity
 
         :param title: Entity title (e.g. ``"Item:Q1"`` or ``"Property:P1"``)

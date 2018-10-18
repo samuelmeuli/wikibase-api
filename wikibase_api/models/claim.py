@@ -34,7 +34,7 @@ class Claim:
 
         return self.api.get(params)
 
-    def create(self, entity_id, property_id, value):
+    def add(self, entity_id, property_id, value):
         """Create a new claim for the specified entity
 
         :param entity_id: Entity identifier (e.g. ``"Q1"``)
@@ -76,7 +76,7 @@ class Claim:
         }
         return self.api.post(params)
 
-    def delete(self, claim_ids):
+    def remove(self, claim_ids):
         """Delete one or multiple claims
 
         :param claim_ids: Claim identifier(s) (e.g. ``"Q2$8C67587E-79D5-4E8C-972C-A3C5F7ED06B3"`` or

@@ -4,7 +4,7 @@ claim_value_2 = "Claim value 2"
 
 def test_claim(wb, item_id, property_id):
     # Create claim
-    r = wb.claim.create(item_id, property_id, claim_value_1)
+    r = wb.claim.add(item_id, property_id, claim_value_1)
     assert r["success"] == 1
     assert r["claim"]["mainsnak"]["property"] == property_id
 
@@ -20,6 +20,6 @@ def test_claim(wb, item_id, property_id):
     assert r["claim"]["mainsnak"]["datavalue"]["value"] == claim_value_2
 
     # Delete claim
-    r = wb.claim.delete(claim_id)
+    r = wb.claim.remove(claim_id)
     assert r["success"] == 1
     assert r["claims"][0] == claim_id

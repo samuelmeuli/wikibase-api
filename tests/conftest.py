@@ -50,7 +50,7 @@ def wb():
 @pytest.fixture(scope="function")
 def item_id(wb):
     # Create item
-    r = wb.entity.create("item", content=sample_item_content)
+    r = wb.entity.add("item", content=sample_item_content)
     assert r["success"] == 1
     assert r["entity"]["labels"] == sample_item_content["labels"]
     entity_id = r["entity"]["id"]
@@ -61,7 +61,7 @@ def item_id(wb):
 
     # Delete item
     title = "Item:" + entity_id
-    r = wb.entity.delete(title)
+    r = wb.entity.remove(title)
     assert "errors" not in r
     assert r["delete"]["title"] == title
 
@@ -69,7 +69,7 @@ def item_id(wb):
 @pytest.fixture(scope="function")
 def property_id(wb):
     # Create property
-    r = wb.entity.create("property", content=sample_property_content)
+    r = wb.entity.add("property", content=sample_property_content)
     assert type(r) is dict
     assert r["success"] == 1
     entity_id = r["entity"]["id"]
@@ -80,6 +80,6 @@ def property_id(wb):
 
     # Delete property
     title = "Property:" + entity_id
-    r = wb.entity.delete(title)
+    r = wb.entity.remove(title)
     assert "errors" not in r
     assert r["delete"]["title"] == title

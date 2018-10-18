@@ -8,7 +8,7 @@ class Label:
         self.api = api
 
     def set(self, entity_id, label, language):
-        """Create a new claim for the specified entity
+        """Set the label in the specified language for an entity
 
         :param entity_id: Entity identifier (e.g. ``"Q1"``)
         :type entity_id: str
