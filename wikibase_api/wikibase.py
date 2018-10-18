@@ -1,5 +1,5 @@
 from .api import Api
-from .models import Alias, Claim, Description, Entity, Label
+from .models import Alias, Claim, Description, Entity, Label, Reference
 from .utils.config import verify_auth_info
 
 
@@ -97,3 +97,4 @@ class Wikibase:
         self.description = Description(api)
         self.entity = Entity(api)
         self.label = Label(api)
+        self.reference = Reference(api)
