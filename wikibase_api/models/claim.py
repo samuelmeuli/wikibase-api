@@ -67,11 +67,12 @@ class Claim:
         :return: Response
         :rtype: dict
         """
+        value_str = json.dumps(new_value)
         params = {
             "action": "wbsetclaimvalue",
             "claim": claim_id,
             "snaktype": "value",
-            "value": new_value,
+            "value": value_str,
         }
         return self.api.post(params)
 
