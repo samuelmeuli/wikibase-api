@@ -2,7 +2,20 @@ import json
 
 
 class Reference:
-    """Collection of API methods for references"""
+    """Collection of API functions for references
+
+    Example function call::
+
+        from wikibase_api import Wikibase
+
+        wb = Wikibase(
+            # Parameters
+        )
+
+        claim_id = "Q2$8C67587E-79D5-4E8C-972C-A3C5F7ED06B3"
+        r = wb.reference.add(claim_id, "P854", "https://example.com")
+        print(r)
+    """
 
     def __init__(self, api):
         self.api = api
@@ -72,7 +85,7 @@ class Reference:
 
         :param claim_id: Claim identifier (e.g. ``"Q2$8C67587E-79D5-4E8C-972C-A3C5F7ED06B3"``)
         :type claim_id: str
-        :param reference_ids: Hash of the reference to be deleted (e.g.
+        :param reference_ids: Hash(es) of the reference(s) to be deleted (e.g.
             ``"9d5f29a997ad9ced2b1138556a896734148c4a0c"``,
             ``["9d5f29a997ad9ced2b1138556a896734148c4a0c",
             "0b0ca37729a3f637c100832d2a30fe9d867ef385"]``)

@@ -2,7 +2,19 @@ from wikibase_api.utils.validate_value import validate_value
 
 
 class Alias:
-    """Collection of API methods for aliases"""
+    """Collection of API functions for aliases
+
+    Example function call::
+
+        from wikibase_api import Wikibase
+
+        wb = Wikibase(
+            # Parameters
+        )
+
+        r = wb.alias.add("Q1", "The Universe", "en")
+        print(r)
+    """
 
     def __init__(self, api):
         self.api = api

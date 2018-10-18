@@ -1,7 +1,9 @@
-Welcome to the wikibase-api documentation!
-==========================================
+wikibase-api
+============
 
-TODO introduction
+This is the documentation of the ``wikibase-api`` Python library. It is a wrapper around the
+`MediaWiki and Wikibase API <https://www.mediawiki.org/wiki/API:Main_page>`_. You can use it to
+query and edit information on Wikidata or another Wikibase instance.
 
 
 .. toctree::

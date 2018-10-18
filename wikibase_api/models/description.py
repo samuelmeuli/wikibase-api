@@ -2,7 +2,19 @@ from wikibase_api.utils.validate_value import validate_value
 
 
 class Description:
-    """Collection of API methods for descriptions"""
+    """Collection of API functions for descriptions
+
+     Example function call::
+
+        from wikibase_api import Wikibase
+
+        wb = Wikibase(
+            # Parameters
+        )
+
+        r = wb.description.set("Q1", "totality of space and all matter and radiation in it")
+        print(r)
+    """
 
     def __init__(self, api):
         self.api = api

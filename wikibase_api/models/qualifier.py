@@ -2,7 +2,20 @@ import json
 
 
 class Qualifier:
-    """Collection of API methods for qualifiers"""
+    """Collection of API functions for qualifiers
+
+    Example function call::
+
+        from wikibase_api import Wikibase
+
+        wb = Wikibase(
+            # Parameters
+        )
+
+        claim_id = "Q2$8C67587E-79D5-4E8C-972C-A3C5F7ED06B3"
+        r = wb.qualifier.add(claim_id, "P585", "13700 million years BCE")
+        print(r)
+    """
 
     def __init__(self, api):
         self.api = api

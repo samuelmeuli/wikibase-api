@@ -22,9 +22,9 @@ To access the API, simply create an instance of the :class:`.Wikibase` class::
 
 
 .. note::
-    The Wikibase instance which is accessed by default is Wikidata. To use another instance, e.g. a local one for testing, set the ``api_url`` parameter accordingly.
+    The Wikibase instance which is accessed by default is Wikidata. To use another instance, e.g. a local one for testing, set the ``api_url`` parameter accordingly. You can find a guide on how to set up your own instance locally using Docker under :ref:`local_wikibase_instance`.
 
-    You can find a guide on how to set up your own instance locally using Docker under :ref:`local_wikibase_instance`.
+    Another way to test your edits is to query/modify Wikibase's `sandbox item <https://www.wikidata.org/wiki/Q4115189>`_.
 
 Before being able to make requests, you need to authenticate yourself to the API. You have two options:
 

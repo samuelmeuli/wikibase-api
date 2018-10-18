@@ -4,7 +4,19 @@ from wikibase_api.utils.validate_value import validate_value
 
 
 class Claim:
-    """Collection of API methods for claims"""
+    """Collection of API functions for claims
+
+     Example function call::
+
+        from wikibase_api import Wikibase
+
+        wb = Wikibase(
+            # Parameters
+        )
+
+        r = wb.claim.get("Q1")
+        print(r)
+    """
 
     def __init__(self, api):
         self.api = api

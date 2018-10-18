@@ -2,7 +2,19 @@ from wikibase_api.utils.validate_value import validate_value
 
 
 class Label:
-    """Collection of API methods for labels"""
+    """Collection of API functions for labels
+
+    Example function call::
+
+        from wikibase_api import Wikibase
+
+        wb = Wikibase(
+            # Parameters
+        )
+
+        r = wb.label.set("Q1", "univers", "fr")
+        print(r)
+    """
 
     def __init__(self, api):
         self.api = api

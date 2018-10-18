@@ -4,7 +4,20 @@ from wikibase_api.utils.validate_value import validate_value
 
 
 class Entity:
-    """Collection of API methods for Wikibase entities (items, properties, ...)"""
+    """Collection of API functions for Wikibase entities (items, properties, ...)
+
+    Example function call::
+
+        from wikibase_api import Wikibase
+
+        wb = Wikibase(
+            # Parameters
+        )
+
+        content = {"labels": {"en": {"language": "en", "value": "Updated label"}}}
+        r = wb.entity.update("Q1", content=content)
+        print(r)
+    """
 
     def __init__(self, api):
         self.api = api
