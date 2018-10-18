@@ -78,17 +78,17 @@ class Entity:
         params = {"action": "wbeditentity", "id": entity_id, "data": content_str}
         return self.api.post(params)
 
-    def delete(self, entity_id, reason=None):
+    def delete(self, title, reason=None):
         """Delete the specified Wikibase entity
 
-        :param entity_id: Entity identifier (e.g. ``"Q1"``)
-        :type entity_id: str
+        :param title: Entity title (e.g. ``"Item:Q1"`` or ``"Property:P1"``)
+        :type title: str
         :param reason: Reason for the deletion (if not set, Wikibase will use an automatically
             generated reason)
         :return: Response
         :rtype: dict
         """
-        params = {"action": "delete", "title": "Item:" + entity_id}
+        params = {"action": "delete", "title": title}
         if reason is not None:
             params["reason"] = reason
         return self.api.post(params)
