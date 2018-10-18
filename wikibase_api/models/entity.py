@@ -92,3 +92,37 @@ class Entity:
         if reason is not None:
             params["reason"] = reason
         return self.api.post(params)
+
+    def search(self, search_key, language, entity_type=None, limit=10, offset=None):
+        """
+        Search for entities based on their labels and aliases
+        :param search_key:
+        :param language: Languages to search in (e.g. ``"en"``)
+        :type language: str
+        :param entity_type: Type of entities to search for (default: "item")
+        :type entity_type: str
+        :param limit: Maximum number of results to return (default: 10)
+        :type limit: int
+        :param offset: Offset where to continue a search (default: 0)
+        :type offset: int
+        :return: Response
+        :rtype: dict
+        """
+        if language not in possible_languages:
+            raise ValueError('"{}" is not in list of allowed languages'.format(language))
+        if entity_type is not None and entity_type not in possible_entities:
+            raise ValueError('"entity_type" must be set to one of ' + ", ".join(possible_entities))
+
+        params = {
+            "action": "wbsearchentities",
+            "search": search_key,
+            "language": language,
+            "limit": str(limit),
+        }
+
+        if entity_type is not None:
+            params["type"] = entity_type
+        if offset is not None:
+            params["offset"] = str(offset)
+
+        return self.api.get(params)
