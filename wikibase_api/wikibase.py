@@ -92,6 +92,10 @@ class Wikibase:
         # Set up API session
         api = Api(config)
 
+        # Expose API functions to allow custom API calls
+        self.api = api
+
+        # API functions
         self.alias = Alias(api)
         self.claim = Claim(api)
         self.description = Description(api)

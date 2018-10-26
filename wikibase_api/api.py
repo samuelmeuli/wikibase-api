@@ -28,13 +28,13 @@ class Api:
                 oauth_config["access_token"],
                 oauth_config["access_secret"],
             )
-            self.edit_token = self.get_token("csrf")  # Get edit token for POST requests
+            self.edit_token = self._get_token("csrf")  # Get edit token for POST requests
         else:
             # Login
             login_config = config["login_credentials"]
-            login_token = self.get_token("login")  # Get login token
-            self.login(login_config["bot_username"], login_config["bot_password"], login_token)
-            self.edit_token = self.get_token("csrf")  # Get edit token for POST requests
+            login_token = self._get_token("login")  # Get login token
+            self._login(login_config["bot_username"], login_config["bot_password"], login_token)
+            self.edit_token = self._get_token("csrf")  # Get edit token for POST requests
 
     def get(self, params):
         """Make a GET request to the Wikibase API
@@ -64,7 +64,7 @@ class Api:
         r.raise_for_status()  # Raise exception if status code indicates error
         return r.json()
 
-    def get_token(self, token_type):
+    def _get_token(self, token_type):
         """Request edit (CSRF) or login token
 
         :param token_type: Token type (either "csrf" or "login")
@@ -87,14 +87,14 @@ class Api:
 
         return data["query"]["tokens"][token_type + "token"]
 
-    def login(self, bot_username, bot_password, token):
+    def _login(self, bot_username, bot_password, token):
         """Log in user with bot username and bot password (alternative to OAuth) to set auth cookies
 
         :param bot_username: Bot username
         :type bot_username: str
         :param bot_password: Bot password
         :type bot_password: str
-        :param token: Login token (see get_token function)
+        :param token: Login token (see the :meth:`_get_token` function)
         :type token: str
         """
         params = {
