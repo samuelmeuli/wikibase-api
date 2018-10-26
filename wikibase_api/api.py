@@ -48,19 +48,19 @@ class Api:
         r.raise_for_status()  # Raise exception if status code indicates error
         return r.json()
 
-    def post(self, params):
+    def post(self, body):
         """Make a POST request to the Wikibase API
 
-        :param params: Query parameters to be encoded in the URL
-        :type params: dict
+        :param body: Query parameters to be sent in the POST body
+        :type body: dict
         :return: Response object
         :rtype: dict
         """
+        data = {**body, "token": self.edit_token, "summary": self.summary}
         if self.is_bot:
-            params["bot"] = True
-        params["summary"] = self.summary
-        body = {"token": self.edit_token}
-        r = self.session.post(url=self.base_url, params=params, data=body)
+            body["bot"] = True
+
+        r = self.session.post(url=self.base_url, data=data)
         r.raise_for_status()  # Raise exception if status code indicates error
         return r.json()
 
