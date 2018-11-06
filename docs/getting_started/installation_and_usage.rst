@@ -44,7 +44,7 @@ To be able to use OAuth, you need to obtain credentials for an owner-only consum
 
     * Application name and description
     * Tick "This consumer is for use only by <username>"
-    * Select the `grants <https://www.mediawiki.org/wiki/Special:ListGrants>`_ you need, e.g. "High-volume editing", "Edit existing pages" and "Create, edit, and move pages"
+    * Select the `grants <https://www.mediawiki.org/wiki/Special:ListGrants>`_ you need, e.g. "High-volume editing", "Edit existing pages", "Create, edit, and move pages", and "Delete pages, revisions, and log entries"
 
 3. Click the "Propose consumer" button at the bottom of the page
 4. Write down your OAuth consumer information
@@ -75,7 +75,7 @@ Bot passwords allow users to access the API without providing their account's ma
 2. Fill in the registration form:
 
     * Choose a bot name (this will be a suffix to your username)
-    * Select the `grants <https://www.mediawiki.org/wiki/Special:ListGrants>`_ you need, e.g. "High-volume editing", "Edit existing pages" and "Create, edit, and move pages"
+    * Select the `grants <https://www.mediawiki.org/wiki/Special:ListGrants>`_ you need, e.g. "High-volume editing", "Edit existing pages", "Create, edit, and move pages", and "Delete pages, revisions, and log entries"
 
 3. Click the "Create" button at the bottom of the page
 4. Write down your bot username and password
