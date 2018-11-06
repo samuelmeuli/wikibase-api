@@ -1,6 +1,15 @@
 from .api import Api
 from .models import Alias, Claim, Description, Entity, Label, Qualifier, Reference
-from .utils.config import verify_auth_info
+from .utils.config import load_config_file, verify_auth_info, verify_api_url
+
+
+DEFAULT_CONFIG = {
+    "api_url": "https://www.wikidata.org/w/api.php",
+    "oauth_credentials": None,
+    "login_credentials": None,
+    "is_bot": False,
+    "summary": "Modified using wikibase-api for Python",
+}
 
 
 class Wikibase:
@@ -68,26 +77,37 @@ class Wikibase:
         Together, they cannot be longer than 260 characters. Default: ``"Modified using wikibase-api
         for Python"``
     :type summary: str
+    :param config_path: Path to a config.json configuration file. If specified, the other parameters
+        are loaded from this file. The default values are the same as above
+    :type config_path: str
     """
 
     def __init__(
         self,
-        api_url="https://www.wikidata.org/w/api.php",
-        oauth_credentials=None,
-        login_credentials=None,
-        is_bot=False,
-        summary="Modified using wikibase-api for Python",
+        # Option 1: Parameters
+        api_url=DEFAULT_CONFIG["api_url"],
+        oauth_credentials=DEFAULT_CONFIG["oauth_credentials"],
+        login_credentials=DEFAULT_CONFIG["login_credentials"],
+        is_bot=DEFAULT_CONFIG["is_bot"],
+        summary=DEFAULT_CONFIG["summary"],
+        # Option 2: Config file
+        config_path=None,
     ):
-        # Verify configuration parameters
-        verify_auth_info(oauth_credentials, login_credentials)
+        # Load configuration from parameters or file
+        if config_path:
+            config = load_config_file(config_path, DEFAULT_CONFIG)
+        else:
+            config = {
+                "api_url": api_url,
+                "oauth_credentials": oauth_credentials,
+                "login_credentials": login_credentials,
+                "is_bot": is_bot,
+                "summary": summary,
+            }
 
-        config = {
-            "api_url": api_url,
-            "oauth_credentials": oauth_credentials,
-            "login_credentials": login_credentials,
-            "is_bot": is_bot,
-            "summary": summary,
-        }
+        # Verify configuration parameters
+        verify_auth_info(config["oauth_credentials"], config["login_credentials"])
+        verify_api_url(config["api_url"])
 
         # Set up API session
         api = Api(config)
