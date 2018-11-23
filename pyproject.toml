@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "wikibase-api"
+version = "0.1.0"
+description = "Wrapper library for the Wikibase API"
+authors = ["Samuel Meuli <me@samuelmeuli.com>"]
+# TODO more info
+
+[tool.poetry.dependencies]
+python = "^3.6"
+requests = "^2.20"
+requests-oauthlib = "^1.0"
+
+[tool.poetry.dev-dependencies]
+black = "^18.3-alpha.0"
+flake8 = "^3.6"
+pytest = "^3.10"
+sphinx = "^1.8"
+sphinx-rtd-theme = "^0.4.2"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"

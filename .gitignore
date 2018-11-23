@@ -7,6 +7,10 @@
 # Config
 config.json
 
+# Poetry
+*.egg-info/
+dist/
+
 # Python
 __pycache__/
 *.pyc
