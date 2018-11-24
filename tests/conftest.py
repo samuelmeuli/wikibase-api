@@ -5,7 +5,7 @@ import pytest
 from wikibase_api import Wikibase
 
 current_dir = os.path.dirname(os.path.realpath(__file__))
-config_path = os.path.join(os.path.dirname(current_dir), "config.json")
+config_path = os.path.join(os.path.dirname(current_dir), "config-tests.json")
 
 sample_item_content = {"labels": {"en": {"language": "en", "value": "Test item"}}}
 sample_property_content = {

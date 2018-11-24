@@ -6,7 +6,9 @@ Installation and Usage
 1. Installation
 ---------------
 
-TODO Pip/Pipenv instructions
+```
+pip install wikibase-api
+```
 
 
 2. Authentication

@@ -6,6 +6,7 @@
 
 # Config
 config.json
+config-tests.json
 
 # Poetry
 *.egg-info/
