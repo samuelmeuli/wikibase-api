@@ -15,19 +15,44 @@ sample_property_content = {
 
 
 @pytest.fixture(scope="session")
-def wb():
-    # Return new instance of the API wrapper
+def wb_with_auth():
+    """Return new instance of the API wrapper with OAuth authentication
+
+    :return: API wrapper class
+    :rtype: Wikibase
+    """
     try:
         wikibase = Wikibase(config_path=config_path)
         return wikibase
     except Exception as e:
-        pytest.exit("Could not create Wikibase object: " + str(e))
+        pytest.exit("Could not create Wikibase class instance (with authentication): " + str(e))
+
+
+@pytest.fixture(scope="session")
+def wb_without_auth():
+    """Return new instance of the API wrapper without authentication
+
+    :return: API wrapper class
+    :rtype: Wikibase
+    """
+    try:
+        wikibase = Wikibase(api_url="http://localhost:8181/w/api.php")
+        return wikibase
+    except Exception as e:
+        pytest.exit("Could not create Wikibase class instance (without authentication): " + str(e))
 
 
 @pytest.fixture(scope="function")
-def item_id(wb):
+def item_id(wb_with_auth):
+    """Create a new Wikibase item and delete it after running the test
+
+    :param wb_with_auth: API wrapper class (authenticated)
+    :type wb_with_auth: Wikibase
+    :return: Yield the item's ID
+    :rtype: str
+    """
     # Create item
-    r = wb.entity.add("item", content=sample_item_content)
+    r = wb_with_auth.entity.add("item", content=sample_item_content)
     assert r["success"] == 1
     assert r["entity"]["labels"] == sample_item_content["labels"]
     entity_id = r["entity"]["id"]
@@ -38,15 +63,22 @@ def item_id(wb):
 
     # Delete item
     title = "Item:" + entity_id
-    r = wb.entity.remove(title)
+    r = wb_with_auth.entity.remove(title)
     assert "errors" not in r
     assert r["delete"]["title"] == title
 
 
 @pytest.fixture(scope="function")
-def property_id(wb):
+def property_id(wb_with_auth):
+    """Create a new Wikibase property (of type string) and delete it after running the test
+
+    :param wb_with_auth: API wrapper class (authenticated)
+    :type wb_with_auth: Wikibase
+    :return: Yield the property's ID
+    :rtype: str
+    """
     # Create property
-    r = wb.entity.add("property", content=sample_property_content)
+    r = wb_with_auth.entity.add("property", content=sample_property_content)
     assert type(r) is dict
     assert r["success"] == 1
     entity_id = r["entity"]["id"]
@@ -57,6 +89,6 @@ def property_id(wb):
 
     # Delete property
     title = "Property:" + entity_id
-    r = wb.entity.remove(title)
+    r = wb_with_auth.entity.remove(title)
     assert "errors" not in r
     assert r["delete"]["title"] == title

@@ -1,6 +1,8 @@
 import requests
 from requests_oauthlib import OAuth1
 
+from .utils.exceptions import AuthError
+
 
 class Api:
     """Class for connecting to the Wikibase API"""
@@ -15,11 +17,12 @@ class Api:
         # Set up request session
         self.session = requests.Session()
         self.session.params = {"format": "json"}
+        self.edit_token = None
         self.base_url = config["api_url"]
         self.is_bot = config["is_bot"]
         self.summary = config["summary"]
 
-        if "oauth_credentials" in config:
+        if config["oauth_credentials"]:
             # OAuth
             oauth_config = config["oauth_credentials"]
             self.session.auth = OAuth1(
@@ -29,8 +32,8 @@ class Api:
                 oauth_config["access_secret"],
             )
             self.edit_token = self._get_token("csrf")  # Get edit token for POST requests
-        else:
-            # Login
+        elif config["login_credentials"]:
+            # Bot login
             login_config = config["login_credentials"]
             login_token = self._get_token("login")  # Get login token
             self._login(login_config["bot_username"], login_config["bot_password"], login_token)
@@ -56,6 +59,9 @@ class Api:
         :return: Response object
         :rtype: dict
         """
+        if not self.edit_token:
+            raise AuthError("You need to be authenticated to be able to make edits on Wikibase")
+
         data = {**body, "token": self.edit_token, "summary": self.summary}
         if self.is_bot:
             body["bot"] = True

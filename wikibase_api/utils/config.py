@@ -37,11 +37,6 @@ def verify_auth_info(oauth_credentials, login_credentials):
     :param login_credentials: Bot login credentials for Wikibase (None if not specified)
     :type login_credentials: str
     """
-    if not oauth_credentials and not login_credentials:
-        raise KeyError(
-            'Authentication information missing: Either the "oauth_credentials" or the '
-            '"login_credentials" parameter must be provided to the Wikibase class'
-        )
     if oauth_credentials and login_credentials:
         raise KeyError(
             'Authentication information conflict: Only one of the "oauth_credentials" and the '
@@ -53,7 +48,7 @@ def verify_auth_info(oauth_credentials, login_credentials):
                 raise KeyError(
                     'Key "{}" is missing in the "oauth_credentials" parameter'.format(key)
                 )
-    else:
+    elif login_credentials:
         for key in LOGIN_PARAMS:
             if key not in login_credentials:
                 raise KeyError(
@@ -71,5 +66,5 @@ def verify_api_url(api_url):
     if is_test_mode and api_url == WIKIDATA_API:
         raise Exception(
             "Tests must not be run on the live Wikidata instance! Please specify a different "
-            "api_url in the config.json file"
+            "api_url"
         )
