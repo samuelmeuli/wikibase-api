@@ -1,7 +1,7 @@
 import requests
 from requests_oauthlib import OAuth1
 
-from .utils.exceptions import AuthError
+from .utils.exceptions import ApiError, AuthError
 
 
 class Api:
@@ -39,6 +39,11 @@ class Api:
             self._login(login_config["bot_username"], login_config["bot_password"], login_token)
             self.edit_token = self._get_token("csrf")  # Get edit token for POST requests
 
+    @staticmethod
+    def _check_err(json):
+        if "error" in json:
+            raise ApiError(json["error"])
+
     def get(self, params):
         """Make a GET request to the Wikibase API
 
@@ -49,7 +54,9 @@ class Api:
         """
         r = self.session.get(url=self.base_url, params=params)
         r.raise_for_status()  # Raise exception if status code indicates error
-        return r.json()
+        json = r.json()
+        self._check_err(json)
+        return json
 
     def post(self, body):
         """Make a POST request to the Wikibase API
@@ -68,7 +75,9 @@ class Api:
 
         r = self.session.post(url=self.base_url, data=data)
         r.raise_for_status()  # Raise exception if status code indicates error
-        return r.json()
+        json = r.json()
+        self._check_err(json)
+        return json
 
     def _get_token(self, token_type):
         """Request edit (CSRF) or login token
