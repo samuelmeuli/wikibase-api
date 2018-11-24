@@ -15,53 +15,6 @@ DEFAULT_CONFIG = {
 class Wikibase:
     """This is the Wikibase API wrapper class.
 
-    You can access Wikibase by creating an object of the ``Wikibase`` class. You need to
-    authenticate with either OAuth or a bot username and password. OAuth is more secure, but also
-    more complicated to set up.
-
-    a. **OAuth**::
-
-        from wikibase_api import Wikibase
-
-        oauth_credentials = {
-            "consumer_key": "...",
-            "consumer_secret": "...",
-            "access_token": "...",
-            "access_secret": "...",
-        }
-
-        wb = Wikibase(oauth_credentials=oauth_credentials)
-
-    b. **Bot username and password**::
-
-        from wikibase_api import Wikibase
-
-        login_credentials = {
-            "bot_username": "...",
-            "bot_password": "...",
-        }
-
-        wb = Wikibase(login_credentials=login_credentials)
-
-    You can now perform queries or make edits using the Wikibase API::
-
-        r = wb.entity.get("Q1")
-        print(r)
-
-    Output::
-
-        {
-          "entities": {
-            "Q1": {
-              # ...
-            }
-          },
-          "success": 1,
-        }
-
-    The Wikibase instance which is accessed by default is Wikidata. To use another instance, e.g. a
-    local one for testing, set the ``api_url`` parameter accordingly.
-
     :param api_url: URL to the API of the relevant Wikibase instance. Default:
         ``"https://www.wikidata.org/w/api.php"``. For a local instance, you might use
         ``"http://localhost:8181/w/api.php"``

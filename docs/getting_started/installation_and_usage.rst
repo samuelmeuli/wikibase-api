@@ -6,27 +6,78 @@ Installation and Usage
 1. Installation
 ---------------
 
-```
-pip install wikibase-api
-```
+.. code-block:: console
+
+    pip install wikibase-api
 
 
-2. Authentication
------------------
+2. Usage
+--------
 
 To access the API, simply create an instance of the :class:`.Wikibase` class::
 
     from wikibase_api import Wikibase
 
-    wb = Wikibase(
-        # Parameters
-    )
+    wb = Wikibase()
 
 
 .. note::
+
     The Wikibase instance which is accessed by default is Wikidata. To use another instance, e.g. a local one for testing, set the ``api_url`` parameter accordingly. You can find a guide on how to set up your own instance locally using Docker under :ref:`local_wikibase_instance`.
 
-    Another way to test your edits is to query/modify Wikibase's `sandbox item <https://www.wikidata.org/wiki/Q4115189>`_.
+
+3. Queries
+----------
+
+You can query a Wikibase instance (e.g. Wikidata) by simply creating an object of the ``Wikibase`` class and calling a query function. For example, you ask for all information about an item::
+
+    from wikibase_api import Wikibase
+
+    wb = Wikibase()
+    r = wb.entity.get("Q1")
+    print(r)
+
+Output::
+
+    {
+      "entities": {
+        "Q1": {
+          # ...
+        }
+      },
+      "success": 1,
+    }
+
+
+4. Edits
+--------
+
+You can also make edits using the Wikibase API, e.g. create an empty item::
+
+    r = wb.entity.add("item")
+    print(r)
+
+Output::
+
+    {
+      "entity": {
+        "labels": {},
+        "descriptions": {},
+        "aliases": {},
+        "sitelinks": {},
+        "claims": {},
+        "id": "Q1",
+        "type": "item",
+        "lastrevid": 1234
+      },
+      "success": 1
+    }
+
+For a list of all available API functions, have a look at the :ref:`api_reference`.
+
+.. note::
+
+    If you plan to make edits on Wikidata, it's a good idea to test them on the `sandbox item <https://www.wikidata.org/wiki/Q4115189>`_.
 
 Before being able to make requests, you need to authenticate yourself to the API. You have two options:
 
@@ -65,6 +116,7 @@ Now, you can create an instance of the :class:`.Wikibase` class using your newly
     wb = Wikibase(oauth_credentials=oauth_credentials)
 
 .. note::
+
     Some additional steps are required when using OAuth on a local Wikibase instance (see :ref:`oauth_on_local_wikibase_instance`).
 
 
@@ -92,25 +144,3 @@ Now, you can create an instance of the :class:`.Wikibase` class using your newly
     }
 
     wb = Wikibase(login_credentials=login_credentials)
-
-
-3. Usage
---------
-
-You can now make calls to the Wikibase API. For instance, you can fetch all information about an item::
-
-    r = wikibase.entity.get("Q1")
-    print(r)
-
-Output::
-
-    {
-      "entities": {
-        "Q1": {
-          # ...
-        }
-      },
-      "success": 1,
-    }
-
-For a list of all available API functions, have a look at the :ref:`api_reference`.
