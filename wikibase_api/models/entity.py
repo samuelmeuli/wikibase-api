@@ -99,17 +99,17 @@ class Entity:
             params["reason"] = reason
         return self.api.post(params)
 
-    def search(self, search_key, language, entity_type=None, limit=10, offset=None):
-        """
-        Search for entities based on their labels and aliases
+    def search(self, search_key, language, entity_type="item", limit=10, offset=0):
+        """Search for entities based on their labels and aliases
+
         :param search_key:
         :param language: Languages to search in (e.g. ``"en"``)
         :type language: str
-        :param entity_type: Type of entities to search for (default: "item")
+        :param entity_type: Type of entities to search for. Default: "item"
         :type entity_type: str
-        :param limit: Maximum number of results to return (default: 10)
+        :param limit: Maximum number of results to return. Default: 10
         :type limit: int
-        :param offset: Offset where to continue a search (default: 0)
+        :param offset: Offset where to continue a search. Default: 0
         :type offset: int
         :return: Response
         :rtype: dict
