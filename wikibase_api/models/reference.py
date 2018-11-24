@@ -1,5 +1,7 @@
 import json
 
+from ..utils.validate_value import validate_value
+
 
 class Reference:
     """Collection of API functions for references
@@ -20,7 +22,7 @@ class Reference:
     def __init__(self, api):
         self.api = api
 
-    def add(self, claim_id, property_id, value, index=None):
+    def add(self, claim_id, property_id, value, snak_type="value", index=None):
         """Create a new reference for the specified claim
 
         :param claim_id: Claim identifier (e.g. ``"Q2$8C67587E-79D5-4E8C-972C-A3C5F7ED06B3"``)
@@ -29,13 +31,19 @@ class Reference:
         :type property_id: str
         :param value: Value of the reference
         :type value: any
+        :param snak_type: Value type (one of ``["value", "novalue", "somevalue"]``. ``"value"``
+            (default) is used for normal property-value pairs. ``"novalue"`` is used to indicate
+            that an item has none of the property (e.g. a person has no children). ``"somevalue"``
+            is used when it is known that a value exists, but the value itself is not known
+        :type snak_type: str
         :param index: Position of the new reference within the list of references (e.g. ``0`` to add
             the reference to the top of the list)
         :type index: int
         :return: Response
         :rtype: dict
         """
-        snak = {property_id: [{"snaktype": "value", "property": property_id, "datavalue": value}]}
+        validate_value(snak_type, "snak_type")
+        snak = {property_id: [{"snaktype": snak_type, "property": property_id, "datavalue": value}]}
         snak_encoded = json.dumps(snak)
 
         params = {"action": "wbsetreference", "statement": claim_id, "snaks": snak_encoded}
@@ -45,7 +53,7 @@ class Reference:
 
         return self.api.post(params)
 
-    def update(self, claim_id, property_id, reference_id, new_value, index=None):
+    def update(self, claim_id, property_id, reference_id, new_value, snak_type="value", index=None):
         """Update the value of the specified reference
 
         :param claim_id: Claim identifier (e.g. ``"Q2$8C67587E-79D5-4E8C-972C-A3C5F7ED06B3"``)
@@ -57,14 +65,20 @@ class Reference:
         :type reference_id: str
         :param new_value: Value of the reference
         :type new_value: any
+        :param snak_type: Value type (one of ``["value", "novalue", "somevalue"]``. ``"value"``
+            (default) is used for normal property-value pairs. ``"novalue"`` is used to indicate
+            that an item has none of the property (e.g. a person has no children). ``"somevalue"``
+            is used when it is known that a value exists, but the value itself is not known
+        :type snak_type: str
         :param index: Position of the new reference within the list of references (e.g. ``0`` to add
             the reference to the top of the list)
         :type index: int
         :return: Response
         :rtype: dict
         """
+        validate_value(snak_type, "snak_type")
         snak = {
-            property_id: [{"snaktype": "value", "property": property_id, "datavalue": new_value}]
+            property_id: [{"snaktype": snak_type, "property": property_id, "datavalue": new_value}]
         }
         snak_encoded = json.dumps(snak)
 

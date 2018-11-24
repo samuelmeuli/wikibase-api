@@ -453,6 +453,7 @@ valid_values = {
         "zu",
     ],
     "rank": ["preferred", "normal", "deprecated"],
+    "snak_type": ["value", "novalue", "somevalue"],
 }
 
 

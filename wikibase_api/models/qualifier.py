@@ -1,5 +1,7 @@
 import json
 
+from ..utils.validate_value import validate_value
+
 
 class Qualifier:
     """Collection of API functions for qualifiers
@@ -20,7 +22,7 @@ class Qualifier:
     def __init__(self, api):
         self.api = api
 
-    def add(self, claim_id, property_id, value):
+    def add(self, claim_id, property_id, value, snak_type="value"):
         """Create a new qualifier for the specified claim
 
         :param claim_id: Claim identifier (e.g. ``"Q2$8C67587E-79D5-4E8C-972C-A3C5F7ED06B3"``)
@@ -29,21 +31,27 @@ class Qualifier:
         :type property_id: str
         :param value: Value of the qualifier
         :type value: any
+        :param snak_type: Value type (one of ``["value", "novalue", "somevalue"]``. ``"value"``
+            (default) is used for normal property-value pairs. ``"novalue"`` is used to indicate
+            that an item has none of the property (e.g. a person has no children). ``"somevalue"``
+            is used when it is known that a value exists, but the value itself is not known
+        :type snak_type: str
         :return: Response
         :rtype: dict
         """
-        value_encoded = json.dumps(value)
+        value_str = json.dumps(value)
+        validate_value(snak_type, "snak_type")
         params = {
             "action": "wbsetqualifier",
             "claim": claim_id,
             "property": property_id,
-            "value": value_encoded,
-            "snaktype": "value",
+            "value": value_str,
+            "snaktype": snak_type,
         }
 
         return self.api.post(params)
 
-    def update(self, claim_id, qualifier_id, property_id, new_value):
+    def update(self, claim_id, qualifier_id, property_id, new_value, snak_type="value"):
         """Update the value of the specified qualifier
 
         :param claim_id: Claim identifier (e.g. ``"Q2$8C67587E-79D5-4E8C-972C-A3C5F7ED06B3"``)
@@ -55,16 +63,22 @@ class Qualifier:
         :type qualifier_id: str
         :param new_value: Value of the qualifier
         :type new_value: any
+        :param snak_type: Value type (one of ``["value", "novalue", "somevalue"]``. ``"value"``
+            (default) is used for normal property-value pairs. ``"novalue"`` is used to indicate
+            that an item has none of the property (e.g. a person has no children). ``"somevalue"``
+            is used when it is known that a value exists, but the value itself is not known
+        :type snak_type: str
         :return: Response
         :rtype: dict
         """
-        value_encoded = json.dumps(new_value)
+        value_str = json.dumps(new_value)
+        validate_value(snak_type, "snak_type")
         params = {
             "action": "wbsetqualifier",
             "claim": claim_id,
             "property": property_id,
-            "value": value_encoded,
-            "snaktype": "value",
+            "value": value_str,
+            "snaktype": snak_type,
             "snakhash": qualifier_id,
         }
 
