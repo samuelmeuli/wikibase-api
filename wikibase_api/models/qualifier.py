@@ -1,6 +1,6 @@
 import json
 
-from ..utils.validate_value import validate_value
+from ..utils.validate_value import validate_snak
 
 
 class Qualifier:
@@ -29,7 +29,8 @@ class Qualifier:
         :type claim_id: str
         :param property_id: Property identifier (e.g. ``"P1"``)
         :type property_id: str
-        :param value: Value of the qualifier
+        :param value: Value of the qualifier. If snak_type is set to "novalue" or "somevalue", value
+            must be None
         :type value: any
         :param snak_type: Value type (one of ``["value", "novalue", "somevalue"]``. ``"value"``
             (default) is used for normal property-value pairs. ``"novalue"`` is used to indicate
@@ -39,8 +40,8 @@ class Qualifier:
         :return: Response
         :rtype: dict
         """
+        validate_snak(value, snak_type)
         value_str = json.dumps(value)
-        validate_value(snak_type, "snak_type")
         params = {
             "action": "wbsetqualifier",
             "claim": claim_id,
@@ -51,7 +52,7 @@ class Qualifier:
 
         return self.api.post(params)
 
-    def update(self, claim_id, qualifier_id, property_id, new_value, snak_type="value"):
+    def update(self, claim_id, qualifier_id, property_id, value, snak_type="value"):
         """Update the value of the specified qualifier
 
         :param claim_id: Claim identifier (e.g. ``"Q2$8C67587E-79D5-4E8C-972C-A3C5F7ED06B3"``)
@@ -61,8 +62,9 @@ class Qualifier:
         :param qualifier_id: Hash of the qualifier to be updated (e.g.
             ``"e3401fd064ec7c3cb7169aca6efff7419d95312a"``)
         :type qualifier_id: str
-        :param new_value: Value of the qualifier
-        :type new_value: any
+        :param value: Value of the qualifier. If snak_type is set to "novalue" or "somevalue", value
+            must be None
+        :type value: any
         :param snak_type: Value type (one of ``["value", "novalue", "somevalue"]``. ``"value"``
             (default) is used for normal property-value pairs. ``"novalue"`` is used to indicate
             that an item has none of the property (e.g. a person has no children). ``"somevalue"``
@@ -71,8 +73,8 @@ class Qualifier:
         :return: Response
         :rtype: dict
         """
-        value_str = json.dumps(new_value)
-        validate_value(snak_type, "snak_type")
+        validate_snak(value, snak_type)
+        value_str = json.dumps(value)
         params = {
             "action": "wbsetqualifier",
             "claim": claim_id,

@@ -1,6 +1,6 @@
 import json
 
-from ..utils.validate_value import validate_value
+from ..utils.validate_value import validate_snak
 
 
 class Reference:
@@ -29,7 +29,8 @@ class Reference:
         :type claim_id: str
         :param property_id: Property identifier (e.g. ``"P1"``)
         :type property_id: str
-        :param value: Value of the reference
+        :param value: Value of the reference. If snak_type is set to "novalue" or "somevalue", value
+            must be None
         :type value: any
         :param snak_type: Value type (one of ``["value", "novalue", "somevalue"]``. ``"value"``
             (default) is used for normal property-value pairs. ``"novalue"`` is used to indicate
@@ -42,7 +43,7 @@ class Reference:
         :return: Response
         :rtype: dict
         """
-        validate_value(snak_type, "snak_type")
+        validate_snak(value, snak_type)
         snak = {property_id: [{"snaktype": snak_type, "property": property_id, "datavalue": value}]}
         snak_encoded = json.dumps(snak)
 
@@ -53,7 +54,7 @@ class Reference:
 
         return self.api.post(params)
 
-    def update(self, claim_id, property_id, reference_id, new_value, snak_type="value", index=None):
+    def update(self, claim_id, property_id, reference_id, value, snak_type="value", index=None):
         """Update the value of the specified reference
 
         :param claim_id: Claim identifier (e.g. ``"Q2$8C67587E-79D5-4E8C-972C-A3C5F7ED06B3"``)
@@ -63,8 +64,9 @@ class Reference:
         :param reference_id: Hash of the reference to be updated (e.g.
             ``"9d5f29a997ad9ced2b1138556a896734148c4a0c"``)
         :type reference_id: str
-        :param new_value: Value of the reference
-        :type new_value: any
+        :param value: Value of the reference. If snak_type is set to "novalue" or "somevalue", value
+            must be None
+        :type value: any
         :param snak_type: Value type (one of ``["value", "novalue", "somevalue"]``. ``"value"``
             (default) is used for normal property-value pairs. ``"novalue"`` is used to indicate
             that an item has none of the property (e.g. a person has no children). ``"somevalue"``
@@ -76,10 +78,8 @@ class Reference:
         :return: Response
         :rtype: dict
         """
-        validate_value(snak_type, "snak_type")
-        snak = {
-            property_id: [{"snaktype": snak_type, "property": property_id, "datavalue": new_value}]
-        }
+        validate_snak(value, snak_type)
+        snak = {property_id: [{"snaktype": snak_type, "property": property_id, "datavalue": value}]}
         snak_encoded = json.dumps(snak)
 
         params = {

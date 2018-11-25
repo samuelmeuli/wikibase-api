@@ -1,6 +1,6 @@
 import json
 
-from wikibase_api.utils.validate_value import validate_value
+from ..utils.validate_value import validate_snak, validate_value
 
 
 class Claim:
@@ -52,7 +52,8 @@ class Claim:
         :type entity_id: str
         :param property_id: Property identifier (e.g. ``"P1"``)
         :type property_id: str
-        :param value: Value of the claim
+        :param value: Value of the claim. If snak_type is set to "novalue" or "somevalue", value
+            must be None
         :type value: any
         :param snak_type: Value type (one of ``["value", "novalue", "somevalue"]``. ``"value"``
             (default) is used for normal property-value pairs. ``"novalue"`` is used to indicate
@@ -62,8 +63,8 @@ class Claim:
         :return: Response
         :rtype: dict
         """
+        validate_snak(value, snak_type)
         value_str = json.dumps(value)
-        validate_value(snak_type, "snak_type")
         params = {
             "action": "wbcreateclaim",
             "entity": entity_id,
@@ -73,14 +74,15 @@ class Claim:
         }
         return self.api.post(params)
 
-    def update(self, claim_id, new_value, snak_type="value"):
+    def update(self, claim_id, value, snak_type="value"):
         """Update the value of the specified claim
 
         :param claim_id: Claim identifier (e.g. ``"Q2$8C67587E-79D5-4E8C-972C-A3C5F7ED06B3"``), can
             be obtained with :meth:`get`
         :type claim_id: str
-        :param new_value: New value of the claim
-        :type new_value: any
+        :param value: Value of the claim. If snak_type is set to "novalue" or "somevalue", value
+            must be None
+        :type value: any
         :param snak_type: Value type (one of ``["value", "novalue", "somevalue"]``. ``"value"``
             (default) is used for normal property-value pairs. ``"novalue"`` is used to indicate
             that an item has none of the property (e.g. a person has no children). ``"somevalue"``
@@ -89,8 +91,8 @@ class Claim:
         :return: Response
         :rtype: dict
         """
-        value_str = json.dumps(new_value)
-        validate_value(snak_type, "snak_type")
+        validate_snak(value, snak_type)
+        value_str = json.dumps(value)
         params = {
             "action": "wbsetclaimvalue",
             "claim": claim_id,

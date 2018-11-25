@@ -458,10 +458,34 @@ valid_values = {
 
 
 def validate_value(value, param_name):
+    """Raise an exception if the specified value is not an allowed value
+
+    :param value: Value to validate
+    :type value: str
+    :param param_name: Value domain
+    :type param_name: str
+    """
     if value not in valid_values[param_name]:
         valid_values_str = json.dumps(valid_values[param_name])
         raise ValueError(
             'Value "{}" is not a valid {}. It must be set to one of {}'.format(
                 value, param_name, valid_values_str
             )
+        )
+
+
+def validate_snak(value, snak_type):
+    """Validate a snak's type and value
+
+    :param value: Value of the snak
+    :type value: any
+    :param snak_type: Type of the snak (must be one of ``["value", "novalue", "somevalue"]``)
+    :type snak_type: str
+    """
+    validate_value(snak_type, "snak_type")
+    if snak_type == "value" and value is None:
+        raise ValueError(f"Claim value cannot be None")
+    if snak_type != "value" and value is not None:
+        raise ValueError(
+            f'When using snak_type "{snak_type}, the "value" parameter must be set to None'
         )
