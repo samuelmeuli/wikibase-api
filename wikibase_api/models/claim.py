@@ -1,12 +1,12 @@
 import json
 
-from ..utils.validate_value import validate_snak, validate_value
+from ..utils.validate_value import validate_snak
 
 
 class Claim:
     """Collection of API functions for claims
 
-     Example function call::
+    Example function call::
 
         from wikibase_api import Wikibase
 
@@ -20,30 +20,6 @@ class Claim:
 
     def __init__(self, api):
         self.api = api
-
-    def get(self, entity_id, property_id=None, rank="normal"):
-        """Get the claims of the specified entity
-
-        :param entity_id: Entity identifier (e.g. ``"Q1"``)
-        :type entity_id: str
-        :param property_id: Only return claims of the specified property (e.g. ``"P1"``)
-        :type property_id: str
-        :param rank: Only return claims of the specified rank (one of ``["preferred", "normal",
-            "deprecated"]``). Default: "normal"
-        :type rank: str
-        :return: Response
-        :rtype: dict
-        """
-        params = {"action": "wbgetclaims", "entity": entity_id}
-
-        if property_id is not None:
-            params["property"] = property_id
-
-        if rank is not None:
-            validate_value(rank, "rank")
-            params["rank"] = rank
-
-        return self.api.get(params)
 
     def add(self, entity_id, property_id, value, snak_type="value"):
         """Create a new claim for the specified entity
