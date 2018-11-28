@@ -1,7 +1,6 @@
 from .api import Api
 from .models import Alias, Claim, Description, Entity, Label, Qualifier, Reference
-from .utils.config import load_config_file, verify_auth_info, verify_api_url
-
+from .utils.config import load_config_file, verify_api_url, verify_auth_info
 
 DEFAULT_CONFIG = {
     "api_url": "https://www.wikidata.org/w/api.php",
@@ -59,8 +58,9 @@ class Wikibase:
             }
 
         # Verify configuration parameters
-        verify_auth_info(config["oauth_credentials"], config["login_credentials"])
-        verify_api_url(config["api_url"])
+        if config["oauth_credentials"] or config["login_credentials"]:
+            verify_auth_info(config["oauth_credentials"], config["login_credentials"])
+            verify_api_url(config["api_url"])
 
         # Set up API session
         api = Api(config)
