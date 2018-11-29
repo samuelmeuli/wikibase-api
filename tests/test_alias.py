@@ -11,7 +11,7 @@ def test_alias(wb_with_auth, item_id):
     assert r["entity"]["aliases"][language][0]["value"] == alias_1
 
     # Replace aliases
-    r = wb_with_auth.alias.replace(item_id, [alias_2, alias_3], language)
+    r = wb_with_auth.alias.replace_all(item_id, [alias_2, alias_3], language)
     assert r["success"] == 1
     assert r["entity"]["aliases"][language][0]["value"] == alias_2
     assert r["entity"]["aliases"][language][1]["value"] == alias_3

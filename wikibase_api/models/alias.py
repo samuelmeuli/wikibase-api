@@ -73,7 +73,7 @@ class Alias:
         }
         return self.api.post(params)
 
-    def replace(self, entity_id, aliases, language):
+    def replace_all(self, entity_id, aliases, language):
         """Replace all existing aliases with the specified one(s) for an entity
 
         :param entity_id: Entity identifier (e.g. ``"Q1"``)
