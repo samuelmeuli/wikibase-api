@@ -7,9 +7,13 @@ install:
 test:
 	poetry run pytest -s
 
-.PHONY: build-docs
-build-docs:
+.PHONY: docs-build
+docs-build:
 	poetry run make html -C docs
+
+.PHONY: docs-open
+docs-open:
+	open docs/_build/html/index.html
 
 .PHONY: format
 format:
