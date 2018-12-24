@@ -1,3 +1,4 @@
+import json
 import requests
 from requests_oauthlib import OAuth1
 
@@ -40,9 +41,9 @@ class Api:
             self.edit_token = self._get_token("csrf")  # Get edit token for POST requests
 
     @staticmethod
-    def _check_err(json):
-        if "error" in json:
-            raise ApiError(json["error"])
+    def _check_err(res_json):
+        if "error" in res_json:
+            raise ApiError(json.dumps(res_json["error"]))
 
     def get(self, params):
         """Make a GET request to the Wikibase API
