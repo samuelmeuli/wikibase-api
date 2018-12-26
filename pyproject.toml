@@ -2,8 +2,17 @@
 name = "wikibase-api"
 version = "0.1.0"
 description = "Wrapper library for the Wikibase API"
+# TODO license
 authors = ["Samuel Meuli <me@samuelmeuli.com>"]
-# TODO more info
+repository = "https://github.com/samuelmeuli/wikibase-api"
+# TODO documentation URL
+keywords = ["wikibase", "wikidata", "bot", "api", "wrapper"]
+classifiers = [
+	"Intended Audience :: Developers",
+	"Topic :: Internet",
+	"Topic :: Internet :: WWW/HTTP :: Dynamic Content :: Wiki",
+	"Topic :: Software Development :: Libraries :: Python Modules",
+]
 
 [tool.poetry.dependencies]
 python = "^3.6"
