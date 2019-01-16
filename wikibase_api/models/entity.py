@@ -102,7 +102,8 @@ class Entity:
     def search(self, search_key, language, entity_type="item", limit=10, offset=0):
         """Search for entities based on their labels and aliases
 
-        :param search_key:
+        :param search_key: String for which Wikibase entities' labels and aliases are searched
+        :type search_key: str
         :param language: Languages to search in (e.g. ``"en"``)
         :type language: str
         :param entity_type: Type of entities to search for. Default: "item"
