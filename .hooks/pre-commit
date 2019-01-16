@@ -16,4 +16,4 @@ make lint
 make test
 
 # Docs
-make build-docs
+make docs-build

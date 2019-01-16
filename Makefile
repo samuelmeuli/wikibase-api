@@ -16,7 +16,7 @@ docs-build:
 
 # Open built docs
 .PHONY: docs-open
-docs-open: docs-build
+docs-open:
 	open docs/_build/html/index.html
 
 # Format Python code using Black
