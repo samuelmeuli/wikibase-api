@@ -40,14 +40,15 @@ class Claim:
         :rtype: dict
         """
         validate_snak(value, snak_type)
-        value_str = json.dumps(value)
         params = {
             "action": "wbcreateclaim",
             "entity": entity_id,
             "property": property_id,
             "snaktype": snak_type,
-            "value": value_str,
         }
+        if value:
+            value_str = json.dumps(value)
+            params["value"] = value_str
         return self.api.post(params)
 
     def update(self, claim_id, value, snak_type="value"):
@@ -68,13 +69,10 @@ class Claim:
         :rtype: dict
         """
         validate_snak(value, snak_type)
-        value_str = json.dumps(value)
-        params = {
-            "action": "wbsetclaimvalue",
-            "claim": claim_id,
-            "snaktype": snak_type,
-            "value": value_str,
-        }
+        params = {"action": "wbsetclaimvalue", "claim": claim_id, "snaktype": snak_type}
+        if value:
+            value_str = json.dumps(value)
+            params["value"] = value_str
         return self.api.post(params)
 
     def remove(self, claim_ids):
