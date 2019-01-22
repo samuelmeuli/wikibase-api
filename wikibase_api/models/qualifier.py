@@ -41,15 +41,15 @@ class Qualifier:
         :rtype: dict
         """
         validate_snak(value, snak_type)
-        value_str = json.dumps(value)
         params = {
             "action": "wbsetqualifier",
             "claim": claim_id,
             "property": property_id,
-            "value": value_str,
             "snaktype": snak_type,
         }
-
+        if value:
+            value_str = json.dumps(value)
+            params["value"] = value_str
         return self.api.post(params)
 
     def update(self, claim_id, qualifier_id, property_id, value, snak_type="value"):
@@ -74,16 +74,16 @@ class Qualifier:
         :rtype: dict
         """
         validate_snak(value, snak_type)
-        value_str = json.dumps(value)
         params = {
             "action": "wbsetqualifier",
             "claim": claim_id,
             "property": property_id,
-            "value": value_str,
             "snaktype": snak_type,
             "snakhash": qualifier_id,
         }
-
+        if value:
+            value_str = json.dumps(value)
+            params["value"] = value_str
         return self.api.post(params)
 
     def remove(self, claim_id, qualifier_ids):
