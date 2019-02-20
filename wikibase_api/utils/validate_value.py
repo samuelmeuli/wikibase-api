@@ -468,9 +468,8 @@ def validate_value(value, param_name):
     if value not in valid_values[param_name]:
         valid_values_str = json.dumps(valid_values[param_name])
         raise ValueError(
-            'Value "{}" is not a valid {}. It must be set to one of {}'.format(
-                value, param_name, valid_values_str
-            )
+            f'Value "{value}" is not a valid {param_name}. It must be set to one of '
+            f"{valid_values_str}"
         )
 
 

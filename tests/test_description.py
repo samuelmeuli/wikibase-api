@@ -2,7 +2,7 @@ from random import randint
 
 # Generate description with random number because there cannot be two items with the same label and
 # description
-description = "This is a description ({})".format(str(randint(0, 100000000)))
+description = f"This is a random description ({randint(0, 100000000)})"
 language = "en"
 
 

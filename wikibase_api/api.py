@@ -96,9 +96,7 @@ class Api:
 
         if "query" not in data or "tokens" not in data["query"]:
             raise ValueError(
-                "Could not obtain {} token due to authentication error: {}".format(
-                    token_type, str(data)
-                )
+                f"Could not obtain {token_type} token due to authentication error: {data}"
             )
 
         return data["query"]["tokens"][token_type + "token"]

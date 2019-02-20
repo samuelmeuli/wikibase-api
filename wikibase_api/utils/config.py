@@ -45,15 +45,11 @@ def verify_auth_info(oauth_credentials, login_credentials):
     if oauth_credentials:
         for key in OAUTH_PARAMS:
             if key not in oauth_credentials:
-                raise KeyError(
-                    'Key "{}" is missing in the "oauth_credentials" parameter'.format(key)
-                )
+                raise KeyError(f'Key "{key}" is missing in the "oauth_credentials" parameter')
     elif login_credentials:
         for key in LOGIN_PARAMS:
             if key not in login_credentials:
-                raise KeyError(
-                    'Key "{}" is missing in the "login_credentials" parameter'.format(key)
-                )
+                raise KeyError(f'Key "{key}" is missing in the "login_credentials" parameter')
 
 
 def verify_api_url(api_url):
