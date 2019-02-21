@@ -1,6 +1,6 @@
 import json
 
-from ..utils.validate_value import validate_snak
+from wikibase_api.utils.validate_value import validate_snak
 
 
 class Reference:

@@ -1,6 +1,6 @@
-from .api import Api
-from .models import Alias, Claim, Description, Entity, Label, Qualifier, Reference
-from .utils.config import load_config_file, verify_api_url, verify_auth_info
+from wikibase_api.api import Api
+from wikibase_api.models import Alias, Claim, Description, Entity, Label, Qualifier, Reference
+from wikibase_api.utils.config import load_config_file, verify_api_url, verify_auth_info
 
 DEFAULT_CONFIG = {
     "api_url": "https://www.wikidata.org/w/api.php",

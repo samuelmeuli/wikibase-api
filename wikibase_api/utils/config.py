@@ -1,7 +1,7 @@
 import json
 import sys
 
-from .case_conversion import dict_to_snake_case
+from wikibase_api.utils.case_conversion import dict_to_snake_case
 
 OAUTH_PARAMS = ["consumer_key", "consumer_secret", "access_token", "access_secret"]
 LOGIN_PARAMS = ["bot_username", "bot_password"]

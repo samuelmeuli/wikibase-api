@@ -1,3 +1,5 @@
+MODULE_PATH="wikibase_api"
+
 # Install dependencies and Git hooks
 .PHONY: install
 install:
@@ -19,12 +21,13 @@ docs-build:
 docs-open:
 	open docs/_build/html/index.html
 
-# Format Python code using Black
+# Format Python code using Black and isort
 .PHONY: format
 format:
-	poetry run black wikibase_api --line-length=100 ${BLACK_FLAGS}
+	poetry run black ${MODULE_PATH} ${BLACK_FLAGS}
+	poetry run isort ${MODULE_PATH} --recursive ${ISORT_FLAGS}
 
 # Lint Python code using flake8
 .PHONY: lint
 lint:
-	poetry run flake8 wikibase_api --max-line-length=100
+	poetry run flake8 ${MODULE_PATH} --max-line-length=100

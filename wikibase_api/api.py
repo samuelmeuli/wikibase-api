@@ -1,8 +1,9 @@
 import json
+
 import requests
 from requests_oauthlib import OAuth1
 
-from .utils.exceptions import ApiError, AuthError
+from wikibase_api.utils.exceptions import ApiError, AuthError
 
 
 class Api:
