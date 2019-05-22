@@ -4,6 +4,7 @@ version = "0.1.0"
 description = "Wrapper library for the Wikibase API"
 license = "Apache-2.0 and GPL-3.0"
 authors = ["Samuel Meuli <me@samuelmeuli.com>"]
+readme = "README.md"
 repository = "https://github.com/samuelmeuli/wikibase-api"
 documentation = "https://wikibase-api.readthedocs.io"
 keywords = ["wikibase", "wikidata", "bot", "api", "wrapper"]
