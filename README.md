@@ -37,6 +37,8 @@ Output:
 
 ## Documentation
 
+→ **[Docs](https://wikibase-api.readthedocs.io)**
+
 The documentation for this library can be built using the following commands:
 
 ```sh
