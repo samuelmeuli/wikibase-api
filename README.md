@@ -39,10 +39,11 @@ Output:
 
 → **[Docs](https://wikibase-api.readthedocs.io)**
 
-The documentation for this library can be built using the following commands:
+The documentation for this library can be built using the following commands (you'll need to have Python, Make and [Poetry](https://poetry.eustace.io) installed):
 
 ```sh
 git clone REPO_URL
+make install
 make docs-build
 make docs-open
 ```
