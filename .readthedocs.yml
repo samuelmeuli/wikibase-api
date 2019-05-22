@@ -1,0 +1,6 @@
+python:
+  version: 3.6
+  install:
+    - requirements: docs/requirements.txt
+
+# TODO: Install dependencies from pyproject.toml when available (and delete requirements.txt)
