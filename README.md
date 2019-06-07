@@ -1,8 +1,10 @@
 # wikibase-api
 
-`wikibase-api` is a Python library for simple access to the [Wikibase API](https://www.wikidata.org/w/api.php?action=help). It simplifies the authentication process and can be used to query and edit information on Wikidata or any other Wikibase instance.
+**`wikibase-api` is a Python library for simple access to the [Wikibase API](https://www.wikidata.org/w/api.php?action=help).**
 
-For an simpler, object-oriented abstraction of the Wikibase API, have a look at [`python-wikibase`](https://github.com/samuelmeuli/python-wikibase).
+It simplifies the authentication process and can be used to query and edit information on Wikidata or any other Wikibase instance.
+
+**For an simpler, object-oriented abstraction of the Wikibase API, have a look at [`python-wikibase`](https://github.com/samuelmeuli/python-wikibase).**
 
 ## Installation
 
@@ -14,7 +16,7 @@ pip install wikibase-api
 
 Simple example for getting all information about a Wikidata page:
 
-```python
+```py
 from wikibase_api import Wikibase
 
 wb = Wikibase()
@@ -35,15 +37,20 @@ Output:
 }
 ```
 
-## Documentation
+**See the [documentation](https://wikibase-api.readthedocs.io) for descriptions and examples of all commands.**
 
-→ **[Docs](https://wikibase-api.readthedocs.io)**
+## Development
 
-The documentation for this library can be built using the following commands (you'll need to have Python, Make and [Poetry](https://poetry.eustace.io) installed):
+### Setup
 
-```sh
-git clone REPO_URL
-make install
-make docs-build
-make docs-open
-```
+See [this guide](https://wikibase-api.readthedocs.io/en/latest/development/development.html) on how to set up a development environment for this package.
+
+If you'd like to test this package with a local instance of Wikibase, see [this guide](https://wikibase-api.readthedocs.io/en/latest/guides/local_wikibase_instance.html) on how to set up a development instance with `wikibase-docker`.
+
+### TODO
+
+- [ ] Implement functions for sitelinks
+
+### Contributing
+
+Suggestions and contributions are always welcome! Please first discuss changes via issue before submitting a pull request.
