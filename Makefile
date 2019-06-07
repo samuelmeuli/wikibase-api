@@ -14,7 +14,7 @@ test:
 # Build docs using Sphinx
 .PHONY: docs-build
 docs-build:
-	poetry run make html -C docs
+	poetry run sphinx-build ./docs ./docs/_build
 
 # Open built docs
 .PHONY: docs-open

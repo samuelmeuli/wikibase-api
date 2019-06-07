@@ -50,6 +50,7 @@ If you'd like to test this package with a local instance of Wikibase, see [this 
 ### TODO
 
 - [ ] Implement functions for sitelinks
+- [ ] Once dependencies can be installed from [`pyproject.toml`](./pyproject.toml) for Read The Docs deployments: Remove [`.readthedocs.yml`](./.readthedocs.yml) and [`docs/requirements.txt`](./docs/requirements.txt) files
 
 ### Contributing
 
