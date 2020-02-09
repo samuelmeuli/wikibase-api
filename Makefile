@@ -25,7 +25,7 @@ docs-build:
 # Open built docs
 .PHONY: docs-open
 docs-open:
-	open docs/_build/html/index.html
+	open docs/_build/index.html
 
 # Format Python code using Black and isort
 .PHONY: format
