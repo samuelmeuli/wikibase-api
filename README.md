@@ -47,11 +47,6 @@ See [this guide](https://wikibase-api.readthedocs.io/en/latest/development/devel
 
 If you'd like to test this package with a local instance of Wikibase, see [this guide](https://wikibase-api.readthedocs.io/en/latest/guides/local_wikibase_instance.html) on how to set up a development instance with `wikibase-docker`.
 
-### TODO
-
-- [ ] Implement functions for sitelinks
-- [ ] Once dependencies can be installed from [`pyproject.toml`](./pyproject.toml) for Read The Docs deployments: Remove [`.readthedocs.yml`](./.readthedocs.yml) and [`docs/requirements.txt`](./docs/requirements.txt) files
-
 ### Contributing
 
 Suggestions and contributions are always welcome! Please first discuss changes via issue before submitting a pull request.
