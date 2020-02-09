@@ -4,7 +4,7 @@
 
 It simplifies the authentication process and can be used to query and edit information on Wikidata or any other Wikibase instance.
 
-**For an simpler, object-oriented abstraction of the Wikibase API, have a look at [`python-wikibase`](https://github.com/samuelmeuli/python-wikibase).**
+**For a simpler, object-oriented abstraction of the Wikibase API, have a look at [`python-wikibase`](https://github.com/samuelmeuli/python-wikibase).**
 
 ## Installation
 
@@ -14,7 +14,7 @@ pip install wikibase-api
 
 ## Usage
 
-Simple example for getting all information about a Wikidata page:
+Simple example for fetching all information about a Wikidata page:
 
 ```py
 from wikibase_api import Wikibase
@@ -41,12 +41,14 @@ Output:
 
 ## Development
 
+### Contributing
+
+Suggestions and contributions are always welcome! Please discuss larger changes via issue before submitting a pull request.
+
 ### Setup
 
 See [this guide](https://wikibase-api.readthedocs.io/en/latest/development/development.html) on how to set up a development environment for this package.
 
-If you'd like to test this package with a local instance of Wikibase, see [this guide](https://wikibase-api.readthedocs.io/en/latest/guides/local_wikibase_instance.html) on how to set up a development instance with `wikibase-docker`.
+## Related
 
-### Contributing
-
-Suggestions and contributions are always welcome! Please first discuss changes via issue before submitting a pull request.
+- [`python-wikibase`](https://github.com/samuelmeuli/python-wikibase) – Wikibase queries and edits made easy
