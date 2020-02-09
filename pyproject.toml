@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "wikibase-api"
-version = "0.1.1"
+version = "0.1.2"
 description = "Wrapper library for the Wikibase API"
 license = "Apache-2.0 and GPL-3.0"
 authors = ["Samuel Meuli <me@samuelmeuli.com>"]
