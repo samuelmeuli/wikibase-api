@@ -6,6 +6,12 @@ install:
 	poetry install
 	git config core.hooksPath .hooks
 
+# Update dependencies
+.PHONY: update
+update:
+	poetry update
+	poetry export --format requirements.txt --output ./docs/requirements.txt
+
 # Run tests
 .PHONY: test
 test:
